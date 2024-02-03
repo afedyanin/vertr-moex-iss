@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{4B1B7D85-9A4D-4ECC-B361-5D7E24429657}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4B42857C-FD8E-4EB6-B9D6-200FD3E19168}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9C59A7AC-5C91-4BC5-97B7-72B20D752B2C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vertr.Moex.ConsoleApp", "src\Vertr.Moex.ConsoleApp\Vertr.Moex.ConsoleApp.csproj", "{9ECA0708-E42C-4CCC-A75C-378FEF716854}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9ECA0708-E42C-4CCC-A75C-378FEF716854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ECA0708-E42C-4CCC-A75C-378FEF716854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ECA0708-E42C-4CCC-A75C-378FEF716854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ECA0708-E42C-4CCC-A75C-378FEF716854}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9ECA0708-E42C-4CCC-A75C-378FEF716854} = {4B42857C-FD8E-4EB6-B9D6-200FD3E19168}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AED32BEA-7168-480C-BA57-E1182383356F}
+	EndGlobalSection
+EndGlobal
