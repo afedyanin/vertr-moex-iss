@@ -4,7 +4,7 @@ namespace Vertr.Moex.ConsoleApp;
 public class IssUriBuilder(string? baseUrl = null)
 {
     private const string _defaulBaseUrl = "https://iss.moex.com/iss";
-    private const string _defaulFormat = "JSON";
+    private const string _defaulFormat = "json";
 
     private readonly StringBuilder _pathbuilder = new StringBuilder();
     private readonly StringBuilder _queryBuilder = new StringBuilder();
@@ -117,19 +117,9 @@ public class IssUriBuilder(string? baseUrl = null)
 
     public IssUriBuilder UsePrimaryBoard => Query("primary_board", "1");
 
-    // TODO: Refactor this
-    public IssUriBuilder UseRus => Query("lang", "ru");
+    public IssUriBuilder UseLang(Language lang) => Query("lang", lang.Name);
 
-    public IssUriBuilder UseEng => Query("lang", "en");
-
-    // TODO: Refactor this
-    public IssUriBuilder UseJson => SetFormat("json");
-
-    public IssUriBuilder UseXml => SetFormat("xml");
-
-    public IssUriBuilder UseHtml => SetFormat("html");
-
-    public IssUriBuilder UseCsv => SetFormat("csv");
+    public IssUriBuilder UseFormat(OutFormat format) => SetFormat(format.Name);
 
     public IssUriBuilder StartFromRow(int startRow) => Query("start", startRow.ToString());
 

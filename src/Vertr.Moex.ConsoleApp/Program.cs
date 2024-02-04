@@ -9,8 +9,8 @@ internal sealed class Program
         var url = new IssUriBuilder()
             .Securities("SU26223RMFS6")
             .UsePrimaryBoard
-            .UseJson
-            .UseEng
+            .UseFormat(OutFormat.Json)
+            .UseLang(Language.Eng)
             .Build();
 
         Console.WriteLine(url);
