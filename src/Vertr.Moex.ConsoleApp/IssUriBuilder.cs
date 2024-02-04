@@ -127,7 +127,6 @@ public class IssUriBuilder(string? baseUrl = null)
 
 
     // TODO: Add query params - https://iss.moex.com/iss/reference/68
-    // TODO: Add out format
     // TODO: Add Static Data
 
     public string Build()
