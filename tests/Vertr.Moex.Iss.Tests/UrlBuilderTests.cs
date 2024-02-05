@@ -19,4 +19,16 @@ public class UrlBuilderTests
 
         Console.WriteLine($"url={url}");
     }
+
+    [Test]
+    public void CanGetEngineInfo()
+    {
+        var url = new UrlBuilder()
+            .Engines(Engine.Stock)
+            .Build();
+
+        Assert.That(url, Is.Not.Empty);
+
+        Console.WriteLine($"url={url}");
+    }
 }

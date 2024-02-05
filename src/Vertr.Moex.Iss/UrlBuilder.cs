@@ -33,7 +33,7 @@ public class UrlBuilder(string? baseUrl = null)
 
     public UrlBuilder Query(string key, string value)
     {
-        _queryBuilder.Append($"&{key}={value}");
+        _queryBuilder.Append($"{key}={value}&");
 
         return this;
     }
@@ -53,6 +53,8 @@ public class UrlBuilder(string? baseUrl = null)
     public UrlBuilder Securities(string? security = null) => Path("securities", security);
 
     public UrlBuilder Engines(string? engine = null) => Path("engines", engine);
+
+    public UrlBuilder Engines(Engine engine) => Engines(engine.Name);
 
     public UrlBuilder Markets(string? market = null) => Path("markets", market);
 
@@ -145,7 +147,7 @@ public class UrlBuilder(string? baseUrl = null)
 
         if (!string.IsNullOrEmpty(query))
         {
-            sb.Append($"?{query}");
+            sb.Append($"?{query.TrimEnd('&')}");
         }
 
         return sb.ToString();
