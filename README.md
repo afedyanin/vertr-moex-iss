@@ -23,3 +23,15 @@ Moex ISS connector
 - [Современные (инкрементные) Source Generators в .NET](https://habr.com/ru/articles/721874/)
 
 
+### Json Parser
+
+- [Использование объектной модели документов JSON в System.Text.Json](https://learn.microsoft.com/ru-ru/dotnet/standard/serialization/system-text-json/use-dom)
+- [How to use a JSON document object model in System.Text.Json](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/use-dom)
+- [Traversing JSON with JsonDocument](https://kevsoft.net/2021/12/19/traversing-json-with-jsondocument.html)
+
+
+### Json SourceGen
+
+- [How to use source generation in System.Text.Json](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/source-generation?pivots=dotnet-8-0)
+- [Try the new System.Text.Json source generator](https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/)
+
