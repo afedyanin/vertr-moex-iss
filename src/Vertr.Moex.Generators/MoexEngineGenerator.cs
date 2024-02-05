@@ -1,31 +1,41 @@
+using System.Collections.Immutable;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Vertr.Moex.Generators;
 
 // https://habr.com/ru/companies/jugru/articles/690040/
+// https://www.thinktecture.com/en/net/roslyn-source-generators-introduction/
 [Generator]
-public class MoexEngineGenerator : ISourceGenerator
+public sealed class MoexEngineGenerator : IIncrementalGenerator
 {
-    public void Initialize(GeneratorInitializationContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
+        IncrementalValueProvider<ImmutableArray<SyntaxToken>> pipeline =
+            context.SyntaxProvider.CreateSyntaxProvider( // A
+                (node, _) => node is ClassDeclarationSyntax, // B
+                (syntax, _) => ((ClassDeclarationSyntax)syntax.Node).Identifier) // C
+                .Collect(); // D
+
+        context.RegisterImplementationSourceOutput(pipeline, Build); // E
     }
 
-    public void Execute(GeneratorExecutionContext context)
+    private void Build(
+    SourceProductionContext context,
+    ImmutableArray<SyntaxToken> source)
     {
-        var compilation = context.Compilation;
-        var engineClass = compilation.GetTypeByMetadataName("Vertr.Moex.Iss.UrlBuilderComponents.Engine");
-        var source = GenerateMoexEngine(engineClass!);
-        context.AddSource($"{engineClass!.Name}.Engines.cs", source);
+        var sourceCode = GenerateMoexEngine();
+        context.AddSource($"Engine.Engines.g.cs", sourceCode);
     }
 
-    private string GenerateMoexEngine(INamedTypeSymbol typeSymbol)
+    private string GenerateMoexEngine()
     {
         return $@"
 using System.ComponentModel;
-namespace {typeSymbol.ContainingNamespace}
+namespace Vertr.Moex.Iss.UrlBuilderComponents
 {{
-  public partial class {typeSymbol.Name}
+  public partial class Engine
   {{
     {GenerateItem()}
   }}
