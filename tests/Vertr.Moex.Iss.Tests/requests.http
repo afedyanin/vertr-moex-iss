@@ -1,3 +1,7 @@
+GET https://iss.moex.com/iss/reference
+
+###
+
 GET https://iss.moex.com/iss/engines/stock/markets/bonds.xml
 
 ###

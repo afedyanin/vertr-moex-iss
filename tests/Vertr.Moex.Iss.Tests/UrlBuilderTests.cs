@@ -1,0 +1,22 @@
+using Vertr.Moex.Iss.UrlBuilderComponents;
+
+namespace Vertr.Moex.Iss.Tests;
+
+[TestFixture(Category = "Unit")]
+public class UrlBuilderTests
+{
+    [Test]
+    public void CanCreateSimpleUrl()
+    {
+        var url = new UrlBuilder()
+            .Securities("SU26223RMFS6")
+            .UsePrimaryBoard
+            .UseFormat(OutFormat.Json)
+            .UseLang(Language.Eng)
+            .Build();
+
+        Assert.That(url, Is.Not.Empty);
+
+        Console.WriteLine($"url={url}");
+    }
+}

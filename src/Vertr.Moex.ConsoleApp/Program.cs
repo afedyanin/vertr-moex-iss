@@ -1,3 +1,6 @@
+using Vertr.Moex.Iss;
+using Vertr.Moex.Iss.UrlBuilderComponents;
+
 namespace Vertr.Moex.ConsoleApp;
 
 internal sealed class Program
@@ -6,7 +9,7 @@ internal sealed class Program
     {
         using var httpClient = new HttpClient();
 
-        var url = new IssUriBuilder()
+        var url = new UrlBuilder()
             .Securities("SU26223RMFS6")
             .UsePrimaryBoard
             .UseFormat(OutFormat.Json)
