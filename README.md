@@ -25,6 +25,7 @@ Moex ISS connector
 - [Incremental Roslyn Source Generators In .NET 6](https://www.thinktecture.com/net/roslyn-source-generators-introduction/)
 - [Source generator updates: incremental generators](https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/)
 - [Saving source generator output in source control](https://andrewlock.net/creating-a-source-generator-part-6-saving-source-generator-output-in-source-control/)
+- [How to Use NuGet Packages in Source Generators](https://www.youtube.com/watch?v=wp-dxZXRkJ4)
 
 ### Json Parser
 
