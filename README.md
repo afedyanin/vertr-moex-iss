@@ -21,7 +21,8 @@ Moex ISS connector
 - [Source Generators](https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.md)
 - [C# Source Generators](https://github.com/amis92/csharp-source-generators)
 - [Современные (инкрементные) Source Generators в .NET](https://habr.com/ru/articles/721874/)
-
+- [Series: Creating a source generator](https://andrewlock.net/series/creating-a-source-generator/)
+- [Incremental Roslyn Source Generators In .NET 6](https://www.thinktecture.com/net/roslyn-source-generators-introduction/)
 
 ### Json Parser
 
@@ -34,4 +35,5 @@ Moex ISS connector
 
 - [How to use source generation in System.Text.Json](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/source-generation?pivots=dotnet-8-0)
 - [Try the new System.Text.Json source generator](https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/)
+- [PLAYING WITH SYSTEM.TEXT.JSON SOURCE GENERATORS](https://www.stevejgordon.co.uk/playing-with-system-text-json-source-generators)
 
