@@ -26,6 +26,7 @@ Moex ISS connector
 - [Source generator updates: incremental generators](https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/)
 - [Saving source generator output in source control](https://andrewlock.net/creating-a-source-generator-part-6-saving-source-generator-output-in-source-control/)
 - [How to Use NuGet Packages in Source Generators](https://www.youtube.com/watch?v=wp-dxZXRkJ4)
+- [How I can read additional files? AdditionalTextsProvider not working as expected](https://stackoverflow.com/questions/72095200/c-sharp-incremental-generator-how-i-can-read-additional-files-additionaltexts)
 
 ### Json Parser
 

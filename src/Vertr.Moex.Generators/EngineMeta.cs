@@ -15,9 +15,9 @@ internal class EngineMeta
 
     public string PropertyName => _textInfo.ToTitleCase(Name);
 
-    public static EngineMeta[] LoadEngines()
+    public static EngineMeta[] LoadEngines(string json)
     {
-        using var jdoc = JsonDocument.Parse(Resources.EnginesJson);
+        using var jdoc = JsonDocument.Parse(json);
         var enginesJson = jdoc.RootElement.GetProperty("engines");
         var columns = enginesJson.GetProperty("columns").Deserialize<string[]>();
 
