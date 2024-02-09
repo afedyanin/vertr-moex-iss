@@ -20,6 +20,12 @@
     </ItemGroup>
   </Target>
 
+  <ItemGroup>
+    <AdditionalFiles Include="JsonData\Engines.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </AdditionalFiles>
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\Vertr.Moex.Generators\Vertr.Moex.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />

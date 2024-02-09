@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using System.Text;
 using Microsoft.CodeAnalysis;
 
@@ -16,29 +15,16 @@ public sealed class MoexEngineGenerator : IIncrementalGenerator
                 content: text.GetText(token)?.ToString()))
             .Where(text => text.content is not null);
 
-        context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
-            "Engine.Engines.g.cs", GenerateStub("TestStub")));
-        /*
-                context.RegisterSourceOutput(jsonFiles, (ctx, nameAndContent) =>
-                {
-                    ctx.AddSource(
-                        $"{nameAndContent.name}.g.cs",
-                        Generate(nameAndContent.name, nameAndContent.content));
-                });
-        */
-    }
-    private string GenerateStub(string stubName)
-    {
-        return $@"
-namespace Vertr.Moex.Iss.UrlBuilderComponents
-{{
-  public partial class {stubName}
-  {{
-  }}
-}}";
+        // context.RegisterPostInitializationOutput(ctx => ctx.AddSource("Engine.Engines.g.cs", GenerateStub("TestStub")));
+
+        context.RegisterImplementationSourceOutput(jsonFiles, (ctx, nameAndContent) =>
+        {
+            ctx.AddSource(
+                $"{nameAndContent.name}.g.cs",
+                Generate(nameAndContent.name, nameAndContent.content));
+        });
     }
 
-    /*
     private string Generate(string fileName, string? jsonContent)
     {
         return GenerateMoexEngine(jsonContent!);
@@ -68,6 +54,5 @@ namespace Vertr.Moex.Iss.UrlBuilderComponents
 
         return sb.ToString();
     }
-    */
 }
 
