@@ -9,3 +9,6 @@ GET https://iss.moex.com/iss/engines/stock/markets/bonds.xml
 GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities/SU26223RMFS6.xml
 
 ###
+
+GET https://iss.moex.com/iss/index.json
+

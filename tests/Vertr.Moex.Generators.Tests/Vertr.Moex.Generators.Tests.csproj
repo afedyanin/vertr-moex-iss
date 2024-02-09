@@ -11,10 +11,14 @@
 
   <ItemGroup>
     <None Remove="Metadata\engines.json" />
+    <None Remove="Metadata\index.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Metadata\engines.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Metadata\index.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

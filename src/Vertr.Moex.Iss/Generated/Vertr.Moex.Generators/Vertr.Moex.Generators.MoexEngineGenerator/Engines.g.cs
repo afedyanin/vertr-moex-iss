@@ -1,13 +1,22 @@
-﻿
+
 namespace Vertr.Moex.Iss.UrlBuilderComponents
 {
   public partial class Engine
   {
-    
+
+        /// <summary>
+        /// Фондовый рынок и рынок депозитов
+        /// </summary>
         public static readonly Engine Stock = new Engine { Id = 1, Name = "stock", Title = "Фондовый рынок и рынок депозитов" };
 
+        /// <summary>
+        /// Рынок ГЦБ (размещение)
+        /// </summary>
         public static readonly Engine State = new Engine { Id = 2, Name = "state", Title = "Рынок ГЦБ (размещение)" };
 
+        /// <summary>
+        /// Валютный рынок
+        /// </summary>
         public static readonly Engine Currency = new Engine { Id = 3, Name = "currency", Title = "Валютный рынок" };
 
         public static readonly Engine Futures = new Engine { Id = 4, Name = "futures", Title = "Срочный рынок" };
