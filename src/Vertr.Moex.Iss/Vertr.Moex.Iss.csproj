@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>    
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
 
   <Target Name="AddSourceGeneratedFiles" AfterTargets="CoreCompile">
@@ -19,7 +19,8 @@
       <Compile Remove="Generated\**" />
     </ItemGroup>
   </Target>
-  
+
+
   <ItemGroup>
     <ProjectReference Include="..\Vertr.Moex.Generators\Vertr.Moex.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
