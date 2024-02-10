@@ -2,6 +2,8 @@ using Microsoft.CodeAnalysis;
 
 namespace Vertr.Moex.Generators;
 
+
+// dotnet build-server shutdown
 [Generator]
 public sealed class MoexEngineGenerator : IIncrementalGenerator
 {
@@ -13,8 +15,6 @@ public sealed class MoexEngineGenerator : IIncrementalGenerator
                 name: Path.GetFileNameWithoutExtension(text.Path),
                 content: text.GetText(token)?.ToString()))
             .Where(text => text.content is not null);
-
-        // context.RegisterPostInitializationOutput(ctx => ctx.AddSource("Engine.Engines.g.cs", GenerateStub("TestStub")));
 
         context.RegisterImplementationSourceOutput(jsonFiles, (ctx, nameAndContent) =>
         {

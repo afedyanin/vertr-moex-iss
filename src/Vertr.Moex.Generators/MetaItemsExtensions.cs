@@ -8,8 +8,7 @@ internal static class MetaItemsExtensions
 
     public static string ToSourceCode(this EngineMeta[] engines)
     {
-        return $@"
-namespace {_namespace}
+        return $@"namespace {_namespace}
 {{
     public partial class Engine
     {{
@@ -25,10 +24,10 @@ namespace {_namespace}
         foreach (var meta in engines)
         {
             sb.AppendLine($@"
-            /// <summary>
-            /// {meta.Title}
-            /// </summary>
-            public static readonly Engine {meta.PropertyName} = new Engine {{ Id = {meta.Id}, Name = ""{meta.Name}"", Title = ""{meta.Title}"" }};");
+        /// <summary>
+        /// {meta.Title}
+        /// </summary>
+        public static readonly Engine {meta.PropertyName} = new Engine {{ Id = {meta.Id}, Name = ""{meta.Name}"", Title = ""{meta.Title}"" }};");
         }
 
         return sb.ToString();
