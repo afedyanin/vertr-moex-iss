@@ -39,29 +39,8 @@ public class IndexJsonParserTests
     [Test]
     public void CanParseEngines()
     {
-        var jdata = GetJsonData();
-        var engines = MetaItemFactory.CreateEngines(jdata["engines"]);
-        Assert.That(engines, Is.Not.Empty);
-    }
-
-    private static Dictionary<string, JsonElement> GetJsonData()
-    {
         var json = File.ReadAllText("Metadata/index.json");
-        var jDoc = JsonDocument.Parse(json);
-        var root = jDoc.RootElement;
-
-        var dict = new Dictionary<string, JsonElement>
-        {
-            { "engines", root.GetProperty("engines") },
-            { "markets", root.GetProperty("markets") },
-            { "boards", root.GetProperty("boards") },
-            { "boardgroups", root.GetProperty("boardgroups") },
-            { "durations", root.GetProperty("durations") },
-            { "securitytypes", root.GetProperty("securitytypes") },
-            { "securitygroups", root.GetProperty("securitygroups") },
-            { "securitycollections", root.GetProperty("securitycollections") }
-        };
-
-        return dict;
+        var factory = new MetaItemFactory(json);
+        Assert.That(factory.Engines, Is.Not.Empty);
     }
 }

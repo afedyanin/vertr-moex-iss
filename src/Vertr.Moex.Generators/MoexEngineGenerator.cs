@@ -19,17 +19,8 @@ public sealed class MoexEngineGenerator : IIncrementalGenerator
         context.RegisterImplementationSourceOutput(jsonFiles, (ctx, nameAndContent) =>
         {
             var factory = new MetaItemFactory(nameAndContent.content);
-            var engines = factory.Equals
-
-            ctx.AddSource(
-                $"{nameAndContent.name}.g.cs",
-                Generate(nameAndContent.name, nameAndContent.content));
+            ctx.AddSource($"Engine.g.cs", factory.Engines.ToSourceCode());
         });
-    }
-
-    private string Generate(string fileName, string? jsonContent)
-    {
-        return GenerateMoexEngine(jsonContent!);
     }
 }
 

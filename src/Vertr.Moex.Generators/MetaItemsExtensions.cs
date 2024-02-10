@@ -25,6 +25,9 @@ namespace {_namespace}
         foreach (var meta in engines)
         {
             sb.AppendLine($@"
+            /// <summary>
+            /// {meta.Title}
+            /// </summary>
             public static readonly Engine {meta.PropertyName} = new Engine {{ Id = {meta.Id}, Name = ""{meta.Name}"", Title = ""{meta.Title}"" }};");
         }
 

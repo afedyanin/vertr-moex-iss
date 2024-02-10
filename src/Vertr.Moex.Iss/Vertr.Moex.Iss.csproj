@@ -25,20 +25,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="JsonData\Engines.json">
+    <AdditionalFiles Include="JsonData\index.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </AdditionalFiles>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="JsonData\index.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\Vertr.Moex.Generators\Vertr.Moex.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Generated\Vertr.Moex.Generators\Vertr.Moex.Generators.MoexEngineGenerator\" />
   </ItemGroup>
 
 </Project>

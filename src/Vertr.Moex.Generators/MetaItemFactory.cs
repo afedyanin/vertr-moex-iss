@@ -13,7 +13,28 @@ internal class MetaItemFactory
         }
 
         var dict = CreateJsonDataDictionary(json!);
+
         Engines = CreateEngines(dict["engines"]);
+
+    }
+    private static Dictionary<string, JsonElement> CreateJsonDataDictionary(string json)
+    {
+        var jDoc = JsonDocument.Parse(json);
+        var root = jDoc.RootElement;
+
+        var dict = new Dictionary<string, JsonElement>
+        {
+            { "engines", root.GetProperty("engines") },
+            { "markets", root.GetProperty("markets") },
+            { "boards", root.GetProperty("boards") },
+            { "boardgroups", root.GetProperty("boardgroups") },
+            { "durations", root.GetProperty("durations") },
+            { "securitytypes", root.GetProperty("securitytypes") },
+            { "securitygroups", root.GetProperty("securitygroups") },
+            { "securitycollections", root.GetProperty("securitycollections") }
+        };
+
+        return dict;
     }
 
     private static EngineMeta[] CreateEngines(JsonElement enginesJson)
@@ -37,25 +58,5 @@ internal class MetaItemFactory
         }
 
         return [.. engines];
-    }
-
-    private static Dictionary<string, JsonElement> CreateJsonDataDictionary(string json)
-    {
-        var jDoc = JsonDocument.Parse(json);
-        var root = jDoc.RootElement;
-
-        var dict = new Dictionary<string, JsonElement>
-        {
-            { "engines", root.GetProperty("engines") },
-            { "markets", root.GetProperty("markets") },
-            { "boards", root.GetProperty("boards") },
-            { "boardgroups", root.GetProperty("boardgroups") },
-            { "durations", root.GetProperty("durations") },
-            { "securitytypes", root.GetProperty("securitytypes") },
-            { "securitygroups", root.GetProperty("securitygroups") },
-            { "securitycollections", root.GetProperty("securitycollections") }
-        };
-
-        return dict;
     }
 }
