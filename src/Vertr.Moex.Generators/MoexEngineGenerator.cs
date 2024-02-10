@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.CodeAnalysis;
 
 namespace Vertr.Moex.Generators;
@@ -9,7 +8,7 @@ public sealed class MoexEngineGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var jsonFiles = context.AdditionalTextsProvider
-            .Where(text => text.Path.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+            .Where(text => text.Path.EndsWith("index.json", StringComparison.OrdinalIgnoreCase))
             .Select((text, token) => (
                 name: Path.GetFileNameWithoutExtension(text.Path),
                 content: text.GetText(token)?.ToString()))
@@ -19,6 +18,9 @@ public sealed class MoexEngineGenerator : IIncrementalGenerator
 
         context.RegisterImplementationSourceOutput(jsonFiles, (ctx, nameAndContent) =>
         {
+            var factory = new MetaItemFactory(nameAndContent.content);
+            var engines = factory.Equals
+
             ctx.AddSource(
                 $"{nameAndContent.name}.g.cs",
                 Generate(nameAndContent.name, nameAndContent.content));
@@ -28,31 +30,6 @@ public sealed class MoexEngineGenerator : IIncrementalGenerator
     private string Generate(string fileName, string? jsonContent)
     {
         return GenerateMoexEngine(jsonContent!);
-    }
-
-    private string GenerateMoexEngine(string jsonSource)
-    {
-        return $@"
-namespace Vertr.Moex.Iss.UrlBuilderComponents
-{{
-  public partial class Engine
-  {{
-    {GenerateItem(jsonSource)}
-  }}
-}}";
-    }
-
-    private string GenerateItem(string json)
-    {
-        var sb = new StringBuilder();
-
-        foreach (var meta in EngineMeta.LoadEngines(json))
-        {
-            sb.AppendLine($@"
-        public static readonly Engine {meta.PropertyName} = new Engine {{ Id = {meta.Id}, Name = ""{meta.Name}"", Title = ""{meta.Title}"" }};");
-        }
-
-        return sb.ToString();
     }
 }
 

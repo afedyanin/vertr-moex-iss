@@ -3,13 +3,20 @@ using System.Text.Json;
 namespace Vertr.Moex.Generators;
 internal class MetaItemFactory
 {
-    public void Parse(string jsonString)
+    public EngineMeta[] Engines { get; } = new EngineMeta[0];
+
+    public MetaItemFactory(string? json)
     {
+        if (string.IsNullOrEmpty(json))
+        {
+            return;
+        }
 
-
+        var dict = CreateJsonDataDictionary(json!);
+        Engines = CreateEngines(dict["engines"]);
     }
 
-    internal static EngineMeta[] CreateEngines(JsonElement enginesJson)
+    private static EngineMeta[] CreateEngines(JsonElement enginesJson)
     {
         var columns = enginesJson.GetProperty("columns").Deserialize<string[]>();
 
@@ -32,7 +39,7 @@ internal class MetaItemFactory
         return [.. engines];
     }
 
-    internal static Dictionary<string, JsonElement> GetJsonData(string json)
+    private static Dictionary<string, JsonElement> CreateJsonDataDictionary(string json)
     {
         var jDoc = JsonDocument.Parse(json);
         var root = jDoc.RootElement;
@@ -51,5 +58,4 @@ internal class MetaItemFactory
 
         return dict;
     }
-
 }
