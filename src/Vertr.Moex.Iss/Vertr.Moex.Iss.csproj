@@ -21,9 +21,19 @@
   </Target>
 
   <ItemGroup>
+    <None Remove="JsonData\index.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="JsonData\Engines.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </AdditionalFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="JsonData\index.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 
