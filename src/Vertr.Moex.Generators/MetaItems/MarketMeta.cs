@@ -11,7 +11,7 @@ internal class MarketMeta
 
     public int MarketId { get; set; }
 
-    public int TradeEngineId { get; set; }
+    public int EngineId { get; set; }
 
     public string? MarketPlace { get; set; }
 }

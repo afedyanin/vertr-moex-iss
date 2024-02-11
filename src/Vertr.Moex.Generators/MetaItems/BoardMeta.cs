@@ -3,11 +3,20 @@ internal class BoardMeta
 {
     public int Id { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+    public string BoardId { get; set; } = string.Empty;
 
     public string Title { get; set; } = string.Empty;
 
-    public string PropertyName => Name.ToTitleCase();
+    public string PropertyName => BoardId.ToUpper();
 
-    public int TradeEngineId { get; set; }
+    public int BoardGroupId { get; set; }
+
+    public int EngineId { get; set; }
+
+    public int MarketId { get; set; }
+
+    public bool IsTraded { get; set; }
+
+    public bool IsPrimary { get; set; }
+
 }

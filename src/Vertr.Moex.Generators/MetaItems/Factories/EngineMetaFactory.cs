@@ -3,6 +3,14 @@ using System.Text.Json;
 namespace Vertr.Moex.Generators.MetaItems.Factories;
 internal static class EngineMetaFactory
 {
+    /*
+        "metadata": {
+            "id": {"type": "int32"},
+            "name": {"type": "string", "bytes": 45, "max_size": 0},
+            "title": {"type": "string", "bytes": 765, "max_size": 0}
+        },
+     */
+
     public static EngineMeta[] CreateEngines(JsonElement enginesJson)
     {
         var columns = enginesJson.GetProperty("columns").Deserialize<string[]>();
