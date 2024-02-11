@@ -24,6 +24,8 @@ public sealed class SourceCodeGenerator : IIncrementalGenerator
                 var metaItems = new MetaItemsProvider(nameAndContent.content);
                 ctx.AddSource(SourceCodeGeneratorConsts.EngineGeneratedFileName, metaItems.Engines.ToSourceCode());
                 ctx.AddSource(SourceCodeGeneratorConsts.MarketGeneratedFileName, metaItems.Markets.ToSourceCode());
+                ctx.AddSource(SourceCodeGeneratorConsts.BoardGeneratedFileName, metaItems.Boards.ToSourceCode());
+                ctx.AddSource(SourceCodeGeneratorConsts.BoardGroupGeneratedFileName, metaItems.BoardGroups.ToSourceCode());
             }
         });
     }
