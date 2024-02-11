@@ -14,4 +14,24 @@ internal class MarketMeta
     public int EngineId { get; set; }
 
     public string? MarketPlace { get; set; }
+
+    public bool IsOtc { get; set; }
+
+    public bool HasHistoryFiles { get; set; }
+
+    public bool HasHistoryTradesFiles { get; set; }
+
+    public bool HasTrades { get; set; }
+
+    public bool HasHistory { get; set; }
+
+    public bool HasCandles { get; set; }
+
+    public bool HasOrderBook { get; set; }
+
+    public bool HasTradingSession { get; set; }
+
+    public bool HasExtraYields { get; set; }
+
+    public bool HasDelay { get; set; }
 }

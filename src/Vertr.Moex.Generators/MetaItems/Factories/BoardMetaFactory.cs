@@ -28,6 +28,7 @@ internal static class BoardMetaFactory
         var idxEngineId = Array.IndexOf(columns!, "engine_id");
         var idxMarketId = Array.IndexOf(columns!, "market_id");
         var idxIsPrimary = Array.IndexOf(columns!, "is_primary");
+        var idxHasCandles = Array.IndexOf(columns!, "has_candles");
         var idxIsTraded = Array.IndexOf(columns!, "is_traded");
 
         var boards = new List<BoardMeta>();
@@ -43,6 +44,7 @@ internal static class BoardMetaFactory
                 EngineId = item[idxEngineId].GetInt32(),
                 MarketId = item[idxMarketId].GetInt32(),
                 IsPrimary = item[idxIsPrimary].GetInt32() > 0,
+                HasCandles = item[idxHasCandles].GetInt32() > 0,
                 IsTraded = item[idxIsTraded].GetInt32() > 0,
             });
         }

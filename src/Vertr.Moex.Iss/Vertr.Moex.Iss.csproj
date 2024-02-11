@@ -14,11 +14,7 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
-    <ItemGroup>
-      <Compile Remove="Generated\**" />
-    </ItemGroup>
-  </Target>
+  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile" />
 
   <ItemGroup>
     <None Remove="JsonData\index.json" />
@@ -33,11 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Vertr.Moex.Generators\Vertr.Moex.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Generated\Vertr.Moex.Generators\Vertr.Moex.Generators.MoexEngineGenerator\" />
   </ItemGroup>
 
 </Project>

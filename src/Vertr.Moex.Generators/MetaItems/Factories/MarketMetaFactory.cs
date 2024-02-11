@@ -37,6 +37,17 @@ internal static class MarketMetaFactory
         var idxName = Array.IndexOf(columns!, "market_name");
         var idxTitle = Array.IndexOf(columns!, "market_title");
         var idxPlace = Array.IndexOf(columns!, "marketplace");
+        var idxIsOtc = Array.IndexOf(columns!, "is_otc");
+        var idxHasHistoryFiles = Array.IndexOf(columns!, "has_history_files");
+        var idxHasHistoryTradesFiles = Array.IndexOf(columns!, "has_history_trades_files");
+        var idxHasTrades = Array.IndexOf(columns!, "has_trades");
+        var idxHasHistory = Array.IndexOf(columns!, "has_history");
+        var idxHasCandles = Array.IndexOf(columns!, "has_candles");
+        var idxHasOrderBook = Array.IndexOf(columns!, "has_orderbook");
+        var idxHasTradingSession = Array.IndexOf(columns!, "has_tradingsession");
+        var idxHasExtraYields = Array.IndexOf(columns!, "has_extra_yields");
+        var idxHasDelay = Array.IndexOf(columns!, "has_delay");
+
 
         var markets = new List<MarketMeta>();
 
@@ -50,6 +61,16 @@ internal static class MarketMetaFactory
                 MarketId = item[idxMarketId].GetInt32(),
                 EngineId = item[idxTradeEngineId].GetInt32(),
                 MarketPlace = item[idxPlace].GetString()!,
+                IsOtc = item[idxIsOtc].GetInt32() > 0,
+                HasHistoryFiles = item[idxHasHistoryFiles].GetInt32() > 0,
+                HasHistoryTradesFiles = item[idxHasHistoryTradesFiles].GetInt32() > 0,
+                HasTrades = item[idxHasTrades].GetInt32() > 0,
+                HasHistory = item[idxHasHistory].GetInt32() > 0,
+                HasCandles = item[idxHasCandles].GetInt32() > 0,
+                HasOrderBook = item[idxHasOrderBook].GetInt32() > 0,
+                HasTradingSession = item[idxHasTradingSession].GetInt32() > 0,
+                HasExtraYields = item[idxHasExtraYields].GetInt32() > 0,
+                HasDelay = item[idxHasDelay].GetInt32() > 0,
             });
         }
 

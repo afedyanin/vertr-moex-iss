@@ -19,4 +19,5 @@ internal class BoardMeta
 
     public bool IsPrimary { get; set; }
 
+    public bool HasCandles { get; set; }
 }
