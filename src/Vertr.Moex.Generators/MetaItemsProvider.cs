@@ -15,6 +15,12 @@ internal class MetaItemsProvider
 
     public DurationMeta[] Durations { get; } = new DurationMeta[0];
 
+    public SecurityTypeMeta[] SecurityTypes { get; } = new SecurityTypeMeta[0];
+
+    public SecurityGroupMeta[] SecurityGroups { get; } = new SecurityGroupMeta[0];
+
+    public SecurityCollectionMeta[] SecurityCollections { get; } = new SecurityCollectionMeta[0];
+
     public MetaItemsProvider(string? json)
     {
         if (string.IsNullOrEmpty(json))
@@ -29,6 +35,9 @@ internal class MetaItemsProvider
         Boards = BoardMetaFactory.CreateBoards(dict["boards"]);
         BoardGroups = BoardGroupMetaFactory.CreateBoardGroups(dict["boardgroups"]);
         Durations = DurationMetaFactory.CreateDurations(dict["durations"]);
+        SecurityTypes = SecurityTypeMetaFactory.CreateSecurityTypes(dict["securitytypes"]);
+        SecurityGroups = SecurityGroupMetaFactory.CreateSecurityGroups(dict["securitygroups"]);
+        SecurityCollections = SecurityCollectionMetaFactory.CreateSecurityCollections(dict["securitycollections"]);
     }
     private static Dictionary<string, JsonElement> CreateJsonDataDictionary(string json)
     {

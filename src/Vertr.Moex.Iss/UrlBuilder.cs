@@ -1,4 +1,5 @@
 using System.Text;
+using Vertr.Moex.Iss.Entities;
 using Vertr.Moex.Iss.UrlBuilderComponents;
 
 namespace Vertr.Moex.Iss;
