@@ -25,7 +25,7 @@ public class UrlBuilderTests
     public void CanGetEngineInfo()
     {
         var url = new UrlBuilder()
-            .Engines(Engine.Stock)
+            .Engines(Engine.Currency)
             .Build();
 
         Assert.That(url, Is.Not.Empty);
