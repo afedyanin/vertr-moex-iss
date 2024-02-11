@@ -19,7 +19,7 @@ public sealed class SourceCodeGenerator : IIncrementalGenerator
 
         context.RegisterImplementationSourceOutput(jsonFiles, (ctx, nameAndContent) =>
         {
-            if (nameAndContent.name.Equals("index.json", StringComparison.OrdinalIgnoreCase))
+            if (nameAndContent.name.Equals("index", StringComparison.OrdinalIgnoreCase))
             {
                 var metaItems = new MetaItemsProvider(nameAndContent.content);
                 ctx.AddSource(SourceCodeGeneratorConsts.EngineGeneratedFileName, metaItems.Engines.ToSourceCode());

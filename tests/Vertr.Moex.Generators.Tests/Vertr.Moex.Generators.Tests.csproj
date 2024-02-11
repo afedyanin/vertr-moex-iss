@@ -10,15 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Metadata\engines.json" />
-    <None Remove="Metadata\index.json" />
+    <None Remove="JsonData\engines.json" />
+    <None Remove="JsonData\index.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Metadata\engines.json">
+    <Content Include="JsonData\engines.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Metadata\index.json">
+    <Content Include="JsonData\index.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

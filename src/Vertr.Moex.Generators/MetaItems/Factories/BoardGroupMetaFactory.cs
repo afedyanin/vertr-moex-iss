@@ -50,7 +50,7 @@ internal static class BoardGroupMetaFactory
                 IsDefault = item[idxIsDefault].GetInt32() > 0,
                 BoardGroupId = item[idxBoardGroupId].GetInt32(),
                 IsTraded = item[idxIsTraded].GetInt32() > 0,
-                IsOrderDriven = item[idxIsOrderDriven].GetInt32() > 0,
+                IsOrderDriven = item[idxIsOrderDriven].ValueKind != JsonValueKind.Null && item[idxIsOrderDriven].GetInt32() > 0,
                 Category = item[idxCategory].GetString()!
             });
         }

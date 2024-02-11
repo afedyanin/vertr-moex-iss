@@ -1,3 +1,4 @@
+using Vertr.Moex.Iss.Entities;
 using Vertr.Moex.Iss.UrlBuilderComponents;
 
 namespace Vertr.Moex.Iss.Tests;
@@ -24,7 +25,7 @@ public class UrlBuilderTests
     public void CanGetEngineInfo()
     {
         var url = new UrlBuilder()
-            .Engines(Engine.Futures)
+            .Engines(Engine.Stock)
             .Build();
 
         Assert.That(url, Is.Not.Empty);
