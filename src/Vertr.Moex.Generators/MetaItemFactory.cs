@@ -1,9 +1,12 @@
 using System.Text.Json;
+using Vertr.Moex.Generators.MetaItems;
 
 namespace Vertr.Moex.Generators;
 internal class MetaItemFactory
 {
     public EngineMeta[] Engines { get; } = new EngineMeta[0];
+
+    public MarketMeta[] Markets { get; } = new MarketMeta[0];
 
     public MetaItemFactory(string? json)
     {
@@ -15,6 +18,7 @@ internal class MetaItemFactory
         var dict = CreateJsonDataDictionary(json!);
 
         Engines = CreateEngines(dict["engines"]);
+        Markets = CreateMarkets(dict["markets"]);
 
     }
     private static Dictionary<string, JsonElement> CreateJsonDataDictionary(string json)
@@ -58,5 +62,32 @@ internal class MetaItemFactory
         }
 
         return [.. engines];
+    }
+
+    private static MarketMeta[] CreateMarkets(JsonElement marketsJson)
+    {
+        var columns = marketsJson.GetProperty("columns").Deserialize<string[]>();
+
+        var idxId = Array.IndexOf(columns!, "market_id");
+        var tradeEngineId = Array.IndexOf(columns!, "trade_engine_id");
+        var idxName = Array.IndexOf(columns!, "market_name");
+        var idxTitle = Array.IndexOf(columns!, "market_title");
+        var idxPlace = Array.IndexOf(columns!, "marketplace");
+
+        var markets = new List<MarketMeta>();
+
+        foreach (var item in marketsJson.GetProperty("data").EnumerateArray())
+        {
+            markets.Add(new MarketMeta
+            {
+                Id = item[idxId].GetInt32(),
+                TradeEngineId = item[tradeEngineId].GetInt32(),
+                Name = item[idxName].GetString()!,
+                Title = item[idxTitle].GetString()!,
+                MarketPlace = item[idxPlace].GetString()!,
+            });
+        }
+
+        return [.. markets];
     }
 }

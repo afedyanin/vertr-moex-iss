@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Vertr.Moex.Generators.MetaItems;
 
 namespace Vertr.Moex.Generators.Tests;
 

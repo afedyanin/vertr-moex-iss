@@ -1,6 +1,5 @@
-namespace Vertr.Moex.Iss.UrlBuilderComponents;
+namespace Vertr.Moex.Iss.Entities;
 
-// https://iss.moex.com/iss/engines.xml
 public partial class Engine
 {
     public required int Id { get; init; }

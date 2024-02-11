@@ -1,14 +1,12 @@
 using System.Text;
 
-namespace Vertr.Moex.Generators;
+namespace Vertr.Moex.Generators.MetaItems.Extensions;
 
-internal static class MetaItemsExtensions
+internal static class EngineSourceCodeProvider
 {
-    private static readonly string _namespace = "Vertr.Moex.Iss.UrlBuilderComponents";
-
     public static string ToSourceCode(this EngineMeta[] engines)
     {
-        return $@"namespace {_namespace}
+        return $@"namespace {SourceCodeGeneratorConsts.EntitiesNamespace}
 {{
     public partial class Engine
     {{
