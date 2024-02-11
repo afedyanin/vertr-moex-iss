@@ -30,11 +30,11 @@ internal static class BoardMetaFactory
         var idxIsPrimary = Array.IndexOf(columns!, "is_primary");
         var idxIsTraded = Array.IndexOf(columns!, "is_traded");
 
-        var markets = new List<BoardMeta>();
+        var boards = new List<BoardMeta>();
 
         foreach (var item in boardsJson.GetProperty("data").EnumerateArray())
         {
-            markets.Add(new BoardMeta
+            boards.Add(new BoardMeta
             {
                 Id = item[idxId].GetInt32(),
                 BoardId = item[idxBoardId].GetString()!,
@@ -47,6 +47,6 @@ internal static class BoardMetaFactory
             });
         }
 
-        return [.. markets];
+        return [.. boards];
     }
 }

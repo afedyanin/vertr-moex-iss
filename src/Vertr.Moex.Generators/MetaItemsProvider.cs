@@ -11,6 +11,8 @@ internal class MetaItemsProvider
 
     public BoardMeta[] Boards { get; } = new BoardMeta[0];
 
+    public BoardGroupMeta[] BoardGroups { get; } = new BoardGroupMeta[0];
+
     public MetaItemsProvider(string? json)
     {
         if (string.IsNullOrEmpty(json))
@@ -23,6 +25,7 @@ internal class MetaItemsProvider
         Engines = EngineMetaFactory.CreateEngines(dict["engines"]);
         Markets = MarketMetaFactory.CreateMarkets(dict["markets"]);
         Boards = BoardMetaFactory.CreateBoards(dict["boards"]);
+        BoardGroups = BoardGroupMetaFactory.CreateBoardGroups(dict["boardgroups"]);
     }
     private static Dictionary<string, JsonElement> CreateJsonDataDictionary(string json)
     {
