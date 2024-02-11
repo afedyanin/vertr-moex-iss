@@ -34,6 +34,7 @@ internal static class MarketMetaFactory
         var idxId = Array.IndexOf(columns!, "id");
         var idxMarketId = Array.IndexOf(columns!, "market_id");
         var idxTradeEngineId = Array.IndexOf(columns!, "trade_engine_id");
+        var idxTradeEngineName = Array.IndexOf(columns!, "trade_engine_name");
         var idxName = Array.IndexOf(columns!, "market_name");
         var idxTitle = Array.IndexOf(columns!, "market_title");
         var idxPlace = Array.IndexOf(columns!, "marketplace");
@@ -60,6 +61,7 @@ internal static class MarketMetaFactory
                 Title = item[idxTitle].GetString()!,
                 MarketId = item[idxMarketId].GetInt32(),
                 EngineId = item[idxTradeEngineId].GetInt32(),
+                EngineName = item[idxTradeEngineName].GetString()!,
                 MarketPlace = item[idxPlace].GetString()!,
                 IsOtc = item[idxIsOtc].GetInt32() > 0,
                 HasHistoryFiles = item[idxHasHistoryFiles].GetInt32() > 0,

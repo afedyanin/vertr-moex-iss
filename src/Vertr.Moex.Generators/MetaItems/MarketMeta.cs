@@ -7,11 +7,13 @@ internal class MarketMeta
 
     public string Title { get; set; } = string.Empty;
 
-    public string PropertyName => Name.ToTitleCase();
+    public string PropertyName => $"{EngineName.ToTitleCase()}_{Name.ToTitleCase()}";
 
     public int MarketId { get; set; }
 
     public int EngineId { get; set; }
+
+    public string EngineName { get; set; } = string.Empty;
 
     public string? MarketPlace { get; set; }
 

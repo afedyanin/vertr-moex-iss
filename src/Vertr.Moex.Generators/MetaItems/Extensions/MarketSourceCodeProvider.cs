@@ -32,17 +32,17 @@ internal static class MarketSourceCodeProvider
             Name = ""{meta.Name}"",
             Title = ""{meta.Title}"",
             EngineId = {meta.EngineId},
-            MarketPlace = ""{meta.MarketPlace ?? string.Empty}""
-            IsOtc = {meta.IsOtc},
-            HasHistoryFiles = {meta.HasHistoryFiles},
-            HasHistoryTradesFiles = {meta.HasHistoryTradesFiles},
-            HasTrades = {meta.HasTrades},
-            HasHistory = {meta.HasHistory},
-            HasCandles = {meta.HasCandles},
-            HasOrderBook = {meta.HasOrderBook},
-            HasTradingSession = {meta.HasTradingSession},
-            HasExtraYields = {meta.HasExtraYields},
-            HasDelay = {meta.HasDelay},
+            MarketPlace = ""{meta.MarketPlace ?? string.Empty}"",
+            IsOtc = {meta.IsOtc.ToString().ToLower()},
+            HasHistoryFiles = {meta.HasHistoryFiles.ToString().ToLower()},
+            HasHistoryTradesFiles = {meta.HasHistoryTradesFiles.ToString().ToLower()},
+            HasTrades = {meta.HasTrades.ToString().ToLower()},
+            HasHistory = {meta.HasHistory.ToString().ToLower()},
+            HasCandles = {meta.HasCandles.ToString().ToLower()},
+            HasOrderBook = {meta.HasOrderBook.ToString().ToLower()},
+            HasTradingSession = {meta.HasTradingSession.ToString().ToLower()},
+            HasExtraYields = {meta.HasExtraYields.ToString().ToLower()},
+            HasDelay = {meta.HasDelay.ToString().ToLower()},
         }};
 ");
         }
