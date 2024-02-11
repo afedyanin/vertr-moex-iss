@@ -23,6 +23,7 @@ public sealed class SourceCodeGenerator : IIncrementalGenerator
             {
                 var metaItems = new MetaItemsProvider(nameAndContent.content);
                 ctx.AddSource(SourceCodeGeneratorConsts.EngineGeneratedFileName, metaItems.Engines.ToSourceCode());
+                ctx.AddSource(SourceCodeGeneratorConsts.MarketGeneratedFileName, metaItems.Markets.ToSourceCode());
             }
         });
     }

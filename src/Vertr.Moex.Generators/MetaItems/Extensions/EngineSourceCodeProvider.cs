@@ -10,13 +10,13 @@ internal static class EngineSourceCodeProvider
 {{
     public partial class Engine
     {{
-    {GenerateEngineProperties(engines)}
-    {GenerateAllEnginesProperty(engines)}
+    {GenerateStaticProperties(engines)}
+    {GenerateAllProperty(engines)}
     }}
 }}";
     }
 
-    private static string GenerateEngineProperties(EngineMeta[] engines)
+    private static string GenerateStaticProperties(EngineMeta[] engines)
     {
         var sb = new StringBuilder();
 
@@ -33,18 +33,18 @@ internal static class EngineSourceCodeProvider
         return sb.ToString();
     }
 
-    private static string GenerateAllEnginesProperty(EngineMeta[] engines)
+    private static string GenerateAllProperty(EngineMeta[] engines)
     {
         var sb = new StringBuilder();
 
         sb.AppendLine($@" 
-        public static Engine[] All = new Engine[] {{ {GenerateAllEngines(engines)} }};
+        public static Engine[] All = new Engine[] {{ {GenerateAllItemsList(engines)} }};
 ");
 
         return sb.ToString();
     }
 
-    private static string GenerateAllEngines(EngineMeta[] engines)
+    private static string GenerateAllItemsList(EngineMeta[] engines)
     {
         var sb = new StringBuilder();
 
