@@ -1,5 +1,5 @@
 namespace Vertr.Moex.Generators.MetaItems;
-internal class MarketMeta
+internal class BoardMeta
 {
     public int Id { get; set; }
 
@@ -9,9 +9,5 @@ internal class MarketMeta
 
     public string PropertyName => Name.ToTitleCase();
 
-    public int MarketId { get; set; }
-
     public int TradeEngineId { get; set; }
-
-    public string? MarketPlace { get; set; }
 }

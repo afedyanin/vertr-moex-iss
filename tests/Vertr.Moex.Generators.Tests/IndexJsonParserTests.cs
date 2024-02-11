@@ -40,7 +40,7 @@ public class IndexJsonParserTests
     public void CanParseEngines()
     {
         var json = File.ReadAllText("Metadata/index.json");
-        var factory = new MetaItemFactory(json);
+        var factory = new MetaItemsProvider(json);
         Assert.That(factory.Engines, Is.Not.Empty);
     }
 }

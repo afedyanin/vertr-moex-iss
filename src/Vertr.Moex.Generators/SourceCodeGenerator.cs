@@ -21,8 +21,8 @@ public sealed class SourceCodeGenerator : IIncrementalGenerator
         {
             if (nameAndContent.name.Equals("index.json", StringComparison.OrdinalIgnoreCase))
             {
-                var factory = new MetaItemFactory(nameAndContent.content);
-                ctx.AddSource(SourceCodeGeneratorConsts.EngineGeneratedFileName, factory.Engines.ToSourceCode());
+                var metaItems = new MetaItemsProvider(nameAndContent.content);
+                ctx.AddSource(SourceCodeGeneratorConsts.EngineGeneratedFileName, metaItems.Engines.ToSourceCode());
             }
         });
     }
