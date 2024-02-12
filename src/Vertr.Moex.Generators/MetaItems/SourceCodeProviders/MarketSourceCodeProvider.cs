@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Vertr.Moex.Generators.MetaItems.Extensions;
+namespace Vertr.Moex.Generators.MetaItems.SourceCodeProviders;
 internal static class MarketSourceCodeProvider
 {
     public static string ToSourceCode(this MarketMeta[] items)

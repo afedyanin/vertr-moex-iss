@@ -1,5 +1,5 @@
 using Microsoft.CodeAnalysis;
-using Vertr.Moex.Generators.MetaItems.Extensions;
+using Vertr.Moex.Generators.MetaItems.SourceCodeProviders;
 
 namespace Vertr.Moex.Generators;
 
@@ -26,6 +26,10 @@ public sealed class SourceCodeGenerator : IIncrementalGenerator
                 ctx.AddSource(SourceCodeGeneratorConsts.MarketGeneratedFileName, metaItems.Markets.ToSourceCode());
                 ctx.AddSource(SourceCodeGeneratorConsts.BoardGeneratedFileName, metaItems.Boards.ToSourceCode());
                 ctx.AddSource(SourceCodeGeneratorConsts.BoardGroupGeneratedFileName, metaItems.BoardGroups.ToSourceCode());
+                ctx.AddSource(SourceCodeGeneratorConsts.SecurityCollectionGeneratedFileName, metaItems.SecurityCollections.ToSourceCode());
+                ctx.AddSource(SourceCodeGeneratorConsts.SecurityGroupGeneratedFileName, metaItems.SecurityGroups.ToSourceCode());
+                ctx.AddSource(SourceCodeGeneratorConsts.SecurityTypeGeneratedFileName, metaItems.SecurityTypes.ToSourceCode());
+                ctx.AddSource(SourceCodeGeneratorConsts.DurationGeneratedFileName, metaItems.Durations.ToSourceCode());
             }
         });
     }
