@@ -25,7 +25,8 @@ public class UrlBuilderTests
     public void CanGetEngineInfo()
     {
         var url = new UrlBuilder()
-            .Engines(Engine.Currency)
+            .Engines(Engine.Offboard)
+            .Boards(Board.TQBR.BoardId)
             .Build();
 
         Assert.That(url, Is.Not.Empty);
