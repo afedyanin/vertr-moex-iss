@@ -59,15 +59,25 @@ public class UrlBuilder(string? baseUrl = null)
 
     public UrlBuilder Markets(string? market = null) => Path("markets", market);
 
+    public UrlBuilder Markets(Market market) => Markets(market.Name);
+
     public UrlBuilder Boards(string? board = null) => Path("boards", board);
+
+    public UrlBuilder Boards(Board board) => Boards(board.BoardId);
 
     public UrlBuilder SecurityGroups(string? securityGroup = null) => Path("securitygroups", securityGroup);
 
+    public UrlBuilder SecurityGroups(SecurityGroup securityGroup) => SecurityGroups(securityGroup.Name);
+
     public UrlBuilder BoardGroups(string? boardGroup = null) => Path("boardgroups", boardGroup);
+
+    public UrlBuilder BoardGroups(BoardGroup boardGroup) => BoardGroups(boardGroup.Name);
 
     public UrlBuilder Sessions(string? session = null) => Path("sessions", session);
 
     public UrlBuilder Collections(string? collection = null) => Path("collections", collection);
+
+    public UrlBuilder Collections(SecurityCollection securityCollection) => Collections(securityCollection.Name);
 
     public UrlBuilder Assets(string? asset = null) => Path("assets", asset);
 
