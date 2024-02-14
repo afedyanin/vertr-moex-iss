@@ -8,7 +8,7 @@ GET https://iss.moex.com/iss/index.json
 GET https://iss.moex.com/iss/engines/stock/markets/shares/securities/columns.json
 
 ###
-GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities/columns.json
+GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities/columns.json?iss.meta=off
 
 ### Sec info
 GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json

@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using Vertr.Moex.Iss.Entities;
 using Vertr.Moex.Iss.UrlBuilderComponents;
 
@@ -17,20 +18,23 @@ public class UrlBuilderTests
             .Build();
 
         Assert.That(url, Is.Not.Empty);
-
         Console.WriteLine($"url={url}");
     }
 
     [Test]
-    public void CanGetEngineInfo()
+    public void CanBuildBondSecuritiesUrl()
     {
         var url = new UrlBuilder()
-            .Engines(Engine.Offboard)
-            .Boards(Board.TQBR.BoardId)
+            .Engines(Engine.Stock)
+            .Markets(Market.Stock_Bonds)
+            .Securities()
+            .IncludeMeta(false)
+            .OnlyBlocks([BlockNames.Securities])
             .Build();
 
         Assert.That(url, Is.Not.Empty);
-
         Console.WriteLine($"url={url}");
+        Assert.That(url, Is.EqualTo("https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json?iss.meta=off&iss.only=securities"));
     }
+
 }

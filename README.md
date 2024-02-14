@@ -41,4 +41,8 @@ Moex ISS connector
 - [Try the new System.Text.Json source generator](https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/)
 - [PLAYING WITH SYSTEM.TEXT.JSON SOURCE GENERATORS](https://www.stevejgordon.co.uk/playing-with-system-text-json-source-generators)
 
+### Data Frame
 
+- [Data Frames QuickStart Sample (C#)](https://numerics.net/quickstart/csharp/data-frames)
+- [Using DataFrames in C#](https://swharden.com/blog/2022-05-01-dotnet-dataframe/)
+- 
