@@ -43,6 +43,6 @@ Moex ISS connector
 
 ### Data Frame
 
-- [Data Frames QuickStart Sample (C#)](https://numerics.net/quickstart/csharp/data-frames)
 - [Using DataFrames in C#](https://swharden.com/blog/2022-05-01-dotnet-dataframe/)
-- 
+- [trying-out-dataframe-package-netcore](https://blog.zhaytam.com/2019/12/17/trying-out-dataframe-package-netcore/)
+
