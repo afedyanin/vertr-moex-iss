@@ -45,4 +45,7 @@ Moex ISS connector
 
 - [Using DataFrames in C#](https://swharden.com/blog/2022-05-01-dotnet-dataframe/)
 - [trying-out-dataframe-package-netcore](https://blog.zhaytam.com/2019/12/17/trying-out-dataframe-package-netcore/)
+- [Getting Started With C# DataFrame and XPlot.Ploty](https://dzone.com/articles/getting-started-with-c-dataframe-and-xplotploty)
+- [Exploring the C# Dataframe API](https://www.youtube.com/watch?v=FI3VxXClJ7Y)
+- 
 
