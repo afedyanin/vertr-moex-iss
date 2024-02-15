@@ -49,15 +49,67 @@ public class ColumnConverterTests
         var marketDataColArray = jDoc.RootElement.GetProperty("marketdata").GetProperty("columns").Deserialize<string[]>();
         var marketDataYieldsColArray = jDoc.RootElement.GetProperty("marketdata_yields").GetProperty("columns").Deserialize<string[]>();
 
-        var securitiesDf = JsonColumnConverter.CreateEmptyDataFarme(columns["securities"], securitiesColArray);
-        var marketDataDf = JsonColumnConverter.CreateEmptyDataFarme(columns["marketdata"], marketDataColArray);
-        var marketDataYieldsDf = JsonColumnConverter.CreateEmptyDataFarme(columns["marketdata_yields"], marketDataYieldsColArray, true);
+        var secCols = JsonColumnConverter.ColNamesToColumns(columns["securities"], securitiesColArray);
+        var marketDataCols = JsonColumnConverter.ColNamesToColumns(columns["marketdata"], marketDataColArray);
+        var marketDataYieldsCols = JsonColumnConverter.ColNamesToColumns(columns["marketdata_yields"], marketDataYieldsColArray);
+
+        var securitiesDf = JsonColumnConverter.CreateEmptyDataFarme(secCols);
+        var marketDataDf = JsonColumnConverter.CreateEmptyDataFarme(marketDataCols);
+        var marketDataYieldsDf = JsonColumnConverter.CreateEmptyDataFarme(marketDataYieldsCols);
 
         Assert.Multiple(() =>
         {
             Assert.That(securitiesDf.Columns, Is.Not.Empty);
             Assert.That(marketDataDf.Columns, Is.Not.Empty);
             Assert.That(marketDataYieldsDf.Columns, Is.Not.Null);
+        });
+    }
+
+    [TestCase("JsonData/bonds.columns.json", "JsonData/bonds.json")]
+    [TestCase("JsonData/shares.columns.json", "JsonData/shares.json")]
+    public void CanFillDataFrame(string columnsFile, string dataFile)
+    {
+        var columns = CreateColumns(File.ReadAllText(columnsFile));
+        var jDoc = JsonDocument.Parse(File.ReadAllText(dataFile));
+
+        var secCols = JsonColumnConverter.ColNamesToColumns(
+            columns["securities"],
+            jDoc.RootElement.GetProperty("securities").GetProperty("columns").Deserialize<string[]>());
+
+        var marketDataCols = JsonColumnConverter.ColNamesToColumns(
+            columns["marketdata"],
+            jDoc.RootElement.GetProperty("marketdata").GetProperty("columns").Deserialize<string[]>());
+
+        var marketDataYieldsCols = JsonColumnConverter.ColNamesToColumns(
+            columns["marketdata_yields"],
+            jDoc.RootElement.GetProperty("marketdata_yields").GetProperty("columns").Deserialize<string[]>());
+
+        var securitiesDf = JsonColumnConverter.CreateEmptyDataFarme(secCols);
+        foreach (var dataRowJson in jDoc.RootElement.GetProperty("securities").GetProperty("data").EnumerateArray())
+        {
+            var dataRow = JsonColumnConverter.CreateDataRow(secCols, dataRowJson);
+            securitiesDf.Append(dataRow);
+        }
+
+        var marketDataDf = JsonColumnConverter.CreateEmptyDataFarme(marketDataCols);
+        foreach (var dataRowJson in jDoc.RootElement.GetProperty("marketdata").GetProperty("data").EnumerateArray())
+        {
+            var dataRow = JsonColumnConverter.CreateDataRow(secCols, dataRowJson);
+            marketDataDf.Append(dataRow);
+        }
+
+        var marketDataYieldsDf = JsonColumnConverter.CreateEmptyDataFarme(marketDataYieldsCols);
+        foreach (var dataRowJson in jDoc.RootElement.GetProperty("marketdata_yields").GetProperty("data").EnumerateArray())
+        {
+            var dataRow = JsonColumnConverter.CreateDataRow(secCols, dataRowJson);
+            marketDataYieldsDf.Append(dataRow);
+        }
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(securitiesDf.Rows, Is.Not.Empty);
+            Assert.That(marketDataDf.Rows, Is.Not.Empty);
+            Assert.That(marketDataYieldsDf.Rows, Is.Not.Empty);
         });
     }
 

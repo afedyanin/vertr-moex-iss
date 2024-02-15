@@ -42,33 +42,48 @@ internal static class JsonColumnConverter
         return res;
     }
 
-    public static DataFrame CreateEmptyDataFarme(IReadOnlyDictionary<string, Column> colDict, string[]? colNames, bool skipNotFoundColumns = false)
+    public static DataFrame CreateEmptyDataFarme(Column[] columns)
     {
-        var dfColumns = new List<DataFrameColumn>();
-
-        if (colNames == null || colNames.Length == 0)
+        if (columns == null || columns.Length == 0)
         {
             return new DataFrame();
         }
+
+        return new DataFrame(columns.Select(col => col.ToDataFrameColumn()));
+    }
+
+    public static IEnumerable<object?> CreateDataRow(Column[] columns, JsonElement jsonRowData)
+    {
+        var res = new List<object?>();
+
+        for (int i = 0; i <= columns.Length; i++)
+        {
+            res.Add(ConvertToItem(jsonRowData[i], columns[i].Type));
+        }
+        return res;
+    }
+
+    public static Column[] ColNamesToColumns(IReadOnlyDictionary<string, Column> colDict, string[]? colNames)
+    {
+        if (colNames == null || colNames.Length == 0)
+        {
+            return [];
+        }
+
+        var res = new List<Column>(colNames.Length);
 
         foreach (var colName in colNames)
         {
             if (!colDict.TryGetValue(colName, out var col))
             {
-                if (skipNotFoundColumns)
-                {
-                    continue;
-                }
-
-                throw new InvalidOperationException($"Column with name={colName} is not found in columns metadata.");
+                // to fit columns array size with data array
+                col = Column.Unknown;
             }
 
-            dfColumns.Add(col.ToDataFrameColumn());
+            res.Add(col);
         }
 
-        var df = new DataFrame(dfColumns);
-
-        return df;
+        return [.. res];
     }
 
     private static DataFrameColumn ToDataFrameColumn(this Column column)
@@ -79,6 +94,29 @@ internal static class JsonColumnConverter
             "date" => new PrimitiveDataFrameColumn<DateOnly>(column.Name),
             "time" => new PrimitiveDataFrameColumn<TimeOnly>(column.Name),
             "datetime" => new PrimitiveDataFrameColumn<DateTime>(column.Name),
-            _ => throw new ArgumentException($"Unknown column type: {column.Type}")
+            "unknown" => new StringDataFrameColumn(column.Name),
+            _ => throw new ArgumentException($"Invalid column type: {column.Type}")
         };
+
+    private static object? ConvertToItem(JsonElement jsonColData, string columnType)
+    {
+        if (jsonColData.ValueKind is
+            JsonValueKind.Null or
+            JsonValueKind.Undefined or
+            JsonValueKind.Array) // unsupported
+        {
+            return null;
+        }
+
+        return columnType switch
+        {
+            "string" => jsonColData.GetString() ?? string.Empty,
+            "number" => jsonColData.GetDecimal(),
+            "date" => jsonColData.GetDateTime(),
+            "time" => jsonColData.GetDateTime(),
+            "datetime" => jsonColData.GetDateTime(),
+            "unknown" => null,
+            _ => throw new ArgumentException($"Invalid column type: {columnType}"),
+        };
+    }
 }
