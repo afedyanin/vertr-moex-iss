@@ -30,6 +30,31 @@ public class DataFrameFactoryTests
     }
 
     [Test]
+    public async Task CanGetColumnsMetadata()
+    {
+        var url = new UrlBuilder()
+            .Engines(Engine.Stock)
+            .Markets(Market.Stock_Bonds)
+            .Securities()
+            .Columns
+            .IncludeMeta(false)
+            .OnlyBlocks([BlockNames.Securities])
+            .Build();
+
+        Console.WriteLine($"url={url}");
+
+        using var http = new HttpClient();
+
+        var json = await http.GetStringAsync(url, CancellationToken.None);
+        Assert.That(json, Is.Not.Empty);
+
+        var jDoc = JsonDocument.Parse(json);
+        var node = jDoc.RootElement.GetProperty("securities");
+        var columns = node.GetProperty("columns").Deserialize<string[]>();
+        var rows = node.GetProperty("data").EnumerateArray();
+    }
+
+    [Test]
     public void CanCreateSimpleDataFrame()
     {
         string[] names = ["John", "Ahmed", "Chris", "Albert"];
@@ -48,11 +73,12 @@ public class DataFrameFactoryTests
         var birthdayColumn = new PrimitiveDataFrameColumn<DateTime>("Birthday", birthdays);
         var salaryColumn = new PrimitiveDataFrameColumn<int>("Salary", salaries);
 
+        var employeesDf = new DataFrame(idColumn1, nameColumn, salaryColumn, birthdayColumn);
+
         int[] ids2 = [3, 1, 2, 4];
         var idColumn2 = new PrimitiveDataFrameColumn<int>("EmployeeId", ids2);
         var departmentColumn = new StringDataFrameColumn("Department", departments);
 
-        var employeesDf = new DataFrame(idColumn1, nameColumn, salaryColumn, birthdayColumn);
         var departmentsDf = new DataFrame(idColumn2, departmentColumn);
 
 

@@ -1,29 +1,22 @@
+### Reference
 GET https://iss.moex.com/iss/reference
-###
 
-### References
+### index.json
 GET https://iss.moex.com/iss/index.json
 
-### Column info
+### shares.columns.json
 GET https://iss.moex.com/iss/engines/stock/markets/shares/securities/columns.json
 
-###
-GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities/columns.json?iss.meta=off
+### bonds.columns.json
+GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities/columns.json
 
-### Sec info
-GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json
-
-###
-GET https://iss.moex.com/iss/engines/stock/markets/bonds/boards/SPOB/securities.json
-
-###
+### shares.json
 GET https://iss.moex.com/iss/engines/stock/markets/shares/securities.json
 
-###
-GET https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json
+### bonds.json
+GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json
 
 
-### Market Data
 
 
 

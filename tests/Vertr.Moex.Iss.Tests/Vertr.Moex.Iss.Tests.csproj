@@ -10,7 +10,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Analysis" Version="0.21.1" />
+    <None Remove="JsonData\bonds.columns.json" />
+    <None Remove="JsonData\bonds.json" />
+    <None Remove="JsonData\shares.columns.json" />
+    <None Remove="JsonData\shares.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="JsonData\bonds.columns.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JsonData\bonds.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JsonData\shares.columns.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JsonData\shares.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
