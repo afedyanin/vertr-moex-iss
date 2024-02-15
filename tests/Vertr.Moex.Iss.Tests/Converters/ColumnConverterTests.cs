@@ -113,6 +113,27 @@ public class ColumnConverterTests
         });
     }
 
+    [TestCase("JsonData/bonds.columns.json", "JsonData/bonds.json")]
+    [TestCase("JsonData/shares.columns.json", "JsonData/shares.json")]
+    public void CanFillSecuritiesDataFrame(string columnsFile, string dataFile)
+    {
+        var columns = CreateColumns(File.ReadAllText(columnsFile));
+        var jDoc = JsonDocument.Parse(File.ReadAllText(dataFile));
+
+        var secCols = JsonColumnConverter.ColNamesToColumns(
+            columns["securities"],
+            jDoc.RootElement.GetProperty("securities").GetProperty("columns").Deserialize<string[]>());
+
+        var securitiesDf = JsonColumnConverter.CreateEmptyDataFarme(secCols);
+        foreach (var dataRowJson in jDoc.RootElement.GetProperty("securities").GetProperty("data").EnumerateArray())
+        {
+            var dataRow = JsonColumnConverter.CreateDataRow(secCols, dataRowJson);
+            securitiesDf.Append(dataRow);
+        }
+
+        Assert.That(securitiesDf.Rows, Is.Not.Empty);
+    }
+
     private static Dictionary<string, IReadOnlyDictionary<string, Column>> CreateColumns(string columnsJson)
     {
         var jDoc = JsonDocument.Parse(columnsJson);
