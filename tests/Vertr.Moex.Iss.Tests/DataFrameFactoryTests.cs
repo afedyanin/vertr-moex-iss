@@ -15,7 +15,7 @@ public class DataFrameFactoryTests
             .Markets(Market.Stock_Bonds)
             .Securities()
             .IncludeMeta(false)
-            .OnlyBlocks([BlockNames.Securities])
+            .OnlyBlocks([InfoBlockKeys.Securities])
             .Build();
 
         using var http = new HttpClient();
@@ -38,7 +38,7 @@ public class DataFrameFactoryTests
             .Securities()
             .Columns
             .IncludeMeta(false)
-            .OnlyBlocks([BlockNames.Securities])
+            .OnlyBlocks([InfoBlockKeys.Securities])
             .Build();
 
         Console.WriteLine($"url={url}");

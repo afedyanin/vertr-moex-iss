@@ -28,7 +28,7 @@ public class UrlBuilderTests
             .Markets(Market.Stock_Bonds)
             .Securities()
             .IncludeMeta(false)
-            .OnlyBlocks([BlockNames.Securities])
+            .OnlyBlocks([InfoBlockKeys.Securities])
             .Build();
 
         Assert.That(url, Is.Not.Empty);

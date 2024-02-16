@@ -6,18 +6,18 @@ namespace Vertr.Moex.Iss.Tests.Entities;
 [TestFixture(Category = "Integration")]
 public class InfoBlockTests
 {
-    [TestCase("JsonData/bonds.json", "securities")]
-    [TestCase("JsonData/shares.json", "securities")]
-    [TestCase("JsonData/bonds.columns.json", "securities")]
-    [TestCase("JsonData/shares.columns.json", "securities")]
-    [TestCase("JsonData/bonds.json", "marketdata")]
-    [TestCase("JsonData/shares.json", "marketdata")]
-    [TestCase("JsonData/bonds.columns.json", "marketdata")]
-    [TestCase("JsonData/shares.columns.json", "marketdata")]
-    [TestCase("JsonData/bonds.json", "marketdata_yields")]
-    [TestCase("JsonData/shares.json", "marketdata_yields")]
-    [TestCase("JsonData/bonds.columns.json", "marketdata_yields")]
-    [TestCase("JsonData/shares.columns.json", "marketdata_yields")]
+    [TestCase("JsonData/bonds.json", InfoBlockKeys.Securities)]
+    [TestCase("JsonData/shares.json", InfoBlockKeys.Securities)]
+    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.Securities)]
+    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.Securities)]
+    [TestCase("JsonData/bonds.json", InfoBlockKeys.Marketdata)]
+    [TestCase("JsonData/shares.json", InfoBlockKeys.Marketdata)]
+    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.Marketdata)]
+    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.Marketdata)]
+    [TestCase("JsonData/bonds.json", InfoBlockKeys.MarketdataYields)]
+    [TestCase("JsonData/shares.json", InfoBlockKeys.MarketdataYields)]
+    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.MarketdataYields)]
+    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.MarketdataYields)]
     public void CanCreateInfoBlockWithEmptyData(string fileName, string blockName)
     {
         var json = File.ReadAllText(fileName);
@@ -27,18 +27,18 @@ public class InfoBlockTests
         Assert.That(securitiesBlock.Data.Columns, Is.Not.Empty);
     }
 
-    [TestCase("JsonData/bonds.json", "securities")]
-    [TestCase("JsonData/shares.json", "securities")]
-    [TestCase("JsonData/bonds.columns.json", "securities")]
-    [TestCase("JsonData/shares.columns.json", "securities")]
-    [TestCase("JsonData/bonds.json", "marketdata")]
-    [TestCase("JsonData/shares.json", "marketdata")]
-    [TestCase("JsonData/bonds.columns.json", "marketdata")]
-    [TestCase("JsonData/shares.columns.json", "marketdata")]
-    [TestCase("JsonData/bonds.json", "marketdata_yields")]
-    [TestCase("JsonData/shares.json", "marketdata_yields")]
-    [TestCase("JsonData/bonds.columns.json", "marketdata_yields")]
-    [TestCase("JsonData/shares.columns.json", "marketdata_yields")]
+    [TestCase("JsonData/bonds.json", InfoBlockKeys.Securities)]
+    [TestCase("JsonData/shares.json", InfoBlockKeys.Securities)]
+    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.Securities)]
+    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.Securities)]
+    [TestCase("JsonData/bonds.json", InfoBlockKeys.Marketdata)]
+    [TestCase("JsonData/shares.json", InfoBlockKeys.Marketdata)]
+    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.Marketdata)]
+    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.Marketdata)]
+    [TestCase("JsonData/bonds.json", InfoBlockKeys.MarketdataYields)]
+    [TestCase("JsonData/shares.json", InfoBlockKeys.MarketdataYields)]
+    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.MarketdataYields)]
+    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.MarketdataYields)]
     public void CanFillDataFrameWithData(string fileName, string blockName)
     {
         var json = File.ReadAllText(fileName);
@@ -59,8 +59,8 @@ public class InfoBlockTests
         var json = File.ReadAllText(fileName);
         var jDoc = JsonDocument.Parse(json);
 
-        var securitiesBlock = new InfoBlock("securities", jDoc);
-        var jsonData = jDoc.RootElement.GetProperty("securities").GetProperty("data");
+        var securitiesBlock = new InfoBlock(InfoBlockKeys.Securities, jDoc);
+        var jsonData = jDoc.RootElement.GetProperty(InfoBlockKeys.Securities).GetProperty("data");
 
         securitiesBlock.FillDataFrame(jsonData);
         var df = securitiesBlock.Data;
