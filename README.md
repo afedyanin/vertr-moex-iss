@@ -67,7 +67,7 @@ Result
 ## Resources
 
 - [ISS Reference](https://iss.moex.com/iss/reference)
-- [Technical resources](TECH.MD)
+- [Technical resources](TECH.md)
 
 ## Similar projects
 
