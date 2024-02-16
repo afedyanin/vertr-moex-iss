@@ -134,6 +134,25 @@ public class ColumnConverterTests
         Assert.That(securitiesDf.Rows, Is.Not.Empty);
     }
 
+    [TestCase("JsonData/bonds.json")]
+    [TestCase("JsonData/shares.json")]
+    public void CanParseMetadata(string fileName)
+    {
+        var json = File.ReadAllText(fileName);
+        var jDoc = JsonDocument.Parse(json);
+        var metaElement = jDoc.RootElement.GetProperty("securities").GetProperty("metadata");
+        var items = JsonSerializer.Deserialize<Dictionary<string, MetadataItem>>(metaElement);
+
+        Assert.That(items, Is.Not.Empty);
+
+        foreach (var item in items)
+        {
+            Console.WriteLine($"key={item.Key} value={item.Value}");
+        }
+
+        Assert.Pass();
+    }
+
     private static Dictionary<string, IReadOnlyDictionary<string, Column>> CreateColumns(string columnsJson)
     {
         var jDoc = JsonDocument.Parse(columnsJson);
