@@ -143,7 +143,7 @@ public class UrlBuilder(string? baseUrl = null)
 
     public UrlBuilder IncludeData(bool on) => Query("iss.data", on ? "on" : "off");
 
-    public UrlBuilder OnlyBlocks(string[] blocks) => Query("iss.only", string.Join(',', blocks));
+    public UrlBuilder OnlyBlocks(InfoBlockKey[] blocks) => Query("iss.only", string.Join(',', blocks.Select(b => b.Name)));
 
     // TODO: Add query params - https://iss.moex.com/iss/reference/68
 

@@ -17,6 +17,7 @@ GET https://iss.moex.com/iss/engines/stock/markets/shares/securities.json
 GET https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json
 
 
-
+### trades.json
+GET https://iss.moex.com/iss/engines/stock/markets/shares/securities/GAZP/trades.json
 
 

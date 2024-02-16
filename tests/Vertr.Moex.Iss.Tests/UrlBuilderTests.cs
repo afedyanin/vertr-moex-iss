@@ -28,12 +28,11 @@ public class UrlBuilderTests
             .Markets(Market.Stock_Bonds)
             .Securities()
             .IncludeMeta(false)
-            .OnlyBlocks([InfoBlockKeys.Securities])
+            .OnlyBlocks([InfoBlockKey.Securities])
             .Build();
 
         Assert.That(url, Is.Not.Empty);
         Console.WriteLine($"url={url}");
         Assert.That(url, Is.EqualTo("https://iss.moex.com/iss/engines/stock/markets/bonds/securities.json?iss.meta=off&iss.only=securities"));
     }
-
 }

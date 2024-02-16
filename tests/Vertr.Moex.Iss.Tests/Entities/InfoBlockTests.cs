@@ -6,50 +6,34 @@ namespace Vertr.Moex.Iss.Tests.Entities;
 [TestFixture(Category = "Integration")]
 public class InfoBlockTests
 {
-    [TestCase("JsonData/bonds.json", InfoBlockKeys.Securities)]
-    [TestCase("JsonData/shares.json", InfoBlockKeys.Securities)]
-    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.Securities)]
-    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.Securities)]
-    [TestCase("JsonData/bonds.json", InfoBlockKeys.Marketdata)]
-    [TestCase("JsonData/shares.json", InfoBlockKeys.Marketdata)]
-    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.Marketdata)]
-    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.Marketdata)]
-    [TestCase("JsonData/bonds.json", InfoBlockKeys.MarketdataYields)]
-    [TestCase("JsonData/shares.json", InfoBlockKeys.MarketdataYields)]
-    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.MarketdataYields)]
-    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.MarketdataYields)]
-    public void CanCreateInfoBlockWithEmptyData(string fileName, string blockName)
+    [TestCase("JsonData/bonds.json")]
+    [TestCase("JsonData/shares.json")]
+    [TestCase("JsonData/bonds.columns.json")]
+    [TestCase("JsonData/shares.columns.json")]
+    public void CanCreateInfoBlockWithEmptyData(string fileName)
     {
         var json = File.ReadAllText(fileName);
 
-        var securitiesBlock = new InfoBlock(blockName, json);
+        var securitiesBlock = new InfoBlock(InfoBlockKey.Securities, json);
         Assert.That(securitiesBlock, Is.Not.Null);
-        Assert.That(securitiesBlock.Data.Columns, Is.Not.Empty);
+        Assert.That(securitiesBlock.DataFrame.Columns, Is.Not.Empty);
     }
 
-    [TestCase("JsonData/bonds.json", InfoBlockKeys.Securities)]
-    [TestCase("JsonData/shares.json", InfoBlockKeys.Securities)]
-    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.Securities)]
-    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.Securities)]
-    [TestCase("JsonData/bonds.json", InfoBlockKeys.Marketdata)]
-    [TestCase("JsonData/shares.json", InfoBlockKeys.Marketdata)]
-    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.Marketdata)]
-    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.Marketdata)]
-    [TestCase("JsonData/bonds.json", InfoBlockKeys.MarketdataYields)]
-    [TestCase("JsonData/shares.json", InfoBlockKeys.MarketdataYields)]
-    [TestCase("JsonData/bonds.columns.json", InfoBlockKeys.MarketdataYields)]
-    [TestCase("JsonData/shares.columns.json", InfoBlockKeys.MarketdataYields)]
-    public void CanFillDataFrameWithData(string fileName, string blockName)
+    [TestCase("JsonData/bonds.json")]
+    [TestCase("JsonData/shares.json")]
+    [TestCase("JsonData/bonds.columns.json")]
+    [TestCase("JsonData/shares.columns.json")]
+    public void CanFillDataFrameWithData(string fileName)
     {
         var json = File.ReadAllText(fileName);
 
-        var block = new InfoBlock(blockName, json, true);
+        var block = new InfoBlock(InfoBlockKey.Marketdata, json, true);
 
         Assert.That(block, Is.Not.Null);
         Assert.Multiple(() =>
         {
-            Assert.That(block.Data.Columns, Is.Not.Empty);
-            Assert.That(block.Data.Rows, Is.Not.Empty);
+            Assert.That(block.DataFrame.Columns, Is.Not.Empty);
+            Assert.That(block.DataFrame.Rows, Is.Not.Empty);
         });
     }
 
@@ -59,11 +43,11 @@ public class InfoBlockTests
         var json = File.ReadAllText(fileName);
         var jDoc = JsonDocument.Parse(json);
 
-        var securitiesBlock = new InfoBlock(InfoBlockKeys.Securities, jDoc);
-        var jsonData = jDoc.RootElement.GetProperty(InfoBlockKeys.Securities).GetProperty("data");
+        var securitiesBlock = new InfoBlock(InfoBlockKey.Securities, jDoc);
+        var jsonData = jDoc.RootElement.GetProperty("securities").GetProperty("data");
 
         securitiesBlock.FillDataFrame(jsonData);
-        var df = securitiesBlock.Data;
+        var df = securitiesBlock.DataFrame;
 
         var table = df.ToString();
         Assert.That(table, Is.Not.Empty);

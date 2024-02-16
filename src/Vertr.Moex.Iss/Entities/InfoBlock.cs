@@ -6,31 +6,31 @@ public class InfoBlock
 {
     private readonly JsonElement _jsonElement;
 
-    public string Key { get; private set; }
+    public InfoBlockKey Key { get; private set; }
 
-    public DataFrame Data { get; private set; }
+    public DataFrame DataFrame { get; private set; }
 
     public string[] Columns { get; private set; }
 
     public IReadOnlyDictionary<string, MetadataItem> Metadata { get; private set; }
 
-    public InfoBlock(string key, string json, bool fillData = false) :
+    public InfoBlock(InfoBlockKey key, string json, bool fillData = false) :
         this(key, JsonDocument.Parse(json), fillData)
     {
     }
 
-    public InfoBlock(string key, JsonDocument jsonDocument, bool fillData = false) :
-        this(key, GetPropertyOrThrow(jsonDocument.RootElement, key), fillData)
+    public InfoBlock(InfoBlockKey key, JsonDocument jsonDocument, bool fillData = false) :
+        this(key, GetPropertyOrThrow(jsonDocument.RootElement, key.Name), fillData)
     {
     }
 
-    public InfoBlock(string key, JsonElement jsonElement, bool fillData = false)
+    public InfoBlock(InfoBlockKey key, JsonElement jsonElement, bool fillData = false)
     {
         _jsonElement = jsonElement;
         Key = key;
         Columns = GetPropertyOrThrow(_jsonElement, "columns").Deserialize<string[]>() ?? [];
         Metadata = GetPropertyOrThrow(_jsonElement, "metadata").Deserialize<Dictionary<string, MetadataItem>>() ?? [];
-        Data = new DataFrame(Columns.Select(CreateColumn));
+        DataFrame = new DataFrame(Columns.Select(CreateColumn));
 
         if (fillData)
         {
@@ -42,7 +42,7 @@ public class InfoBlock
     {
         foreach (var jsonRow in jsonDataElement.EnumerateArray())
         {
-            Data.Append(CreateDataRow(jsonRow), true);
+            DataFrame.Append(CreateDataRow(jsonRow), true);
         }
     }
 
