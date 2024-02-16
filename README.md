@@ -2,24 +2,11 @@
 
 Moex ISS connector
 
-## Resources
-
-- [ISS Reference](https://iss.moex.com/iss/reference)
-- [Technical resources](TECH.MD)
-
-## Similar projects
-
-- [Обёртка над iss.moex.com на C#](https://github.com/ITGlobal/MoexIssAPI)
-- [Fiss - библиотека для строго-типизированного взаимодействия с MOEX ISS](https://github.com/Kataane/Fiss)
-- [C# client library and OpenAPI spec for Moex IIS](https://github.com/HavenDV/MoexIIS)
-
-
 ## Samples
 
 ### Url Builder
 
 ![sample](sample_url.png)
-
 
 ``` csharp
 
@@ -76,3 +63,14 @@ Vertr.Moex.ConsoleApp.exe > tt.txt
 Result
 
 ![sample](sample.png)
+
+## Resources
+
+- [ISS Reference](https://iss.moex.com/iss/reference)
+- [Technical resources](TECH.MD)
+
+## Similar projects
+
+- [Обёртка над iss.moex.com на C#](https://github.com/ITGlobal/MoexIssAPI)
+- [Fiss - библиотека для строго-типизированного взаимодействия с MOEX ISS](https://github.com/Kataane/Fiss)
+- [C# client library and OpenAPI spec for Moex IIS](https://github.com/HavenDV/MoexIIS)
