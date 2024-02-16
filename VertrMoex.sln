@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{4B1B7D
 		..\vertr-bonds\docs\iss-api-rus-v14.pdf = ..\vertr-bonds\docs\iss-api-rus-v14.pdf
 		LICENSE = LICENSE
 		README.md = README.md
+		sample.png = sample.png
+		sample_url.png = sample_url.png
 		TECH.md = TECH.md
 	EndProjectSection
 EndProject
