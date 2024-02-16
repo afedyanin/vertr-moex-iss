@@ -1,5 +1,5 @@
 using Vertr.Moex.Iss;
-using Vertr.Moex.Iss.UrlBuilderComponents;
+using Vertr.Moex.Iss.Entities;
 
 namespace Vertr.Moex.ConsoleApp;
 
@@ -7,19 +7,13 @@ internal sealed class Program
 {
     public static async Task Main()
     {
-        using var httpClient = new HttpClient();
+        var api = new MoexIssApi();
 
-        var url = new UrlBuilder()
-            .Securities("SU26223RMFS6")
-            .UsePrimaryBoard
-            .UseFormat(OutFormat.Json)
-            .UseLang(Language.Eng)
-            .Build();
+        var dfs = await api.Securities(
+            Engine.Stock,
+            Market.Stock_Bonds,
+            [InfoBlockKey.Securities, InfoBlockKey.Marketdata]);
 
-        Console.WriteLine(url);
-
-        var res = await httpClient.GetStringAsync(url);
-
-        Console.WriteLine(res);
+        dfs[0].PrettyPrint();
     }
 }

@@ -7,14 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <!--
   <ItemGroup>
     <PackageReference Include="Vertr.Moex.Iss" Version="1.0.0" />
   </ItemGroup>
+  -->
 
-  <!--
   <ItemGroup>
     <ProjectReference Include="..\Vertr.Moex.Iss\Vertr.Moex.Iss.csproj" />
   </ItemGroup>
-  -->
 
 </Project>
