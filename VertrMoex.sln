@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{4B1B7D
 		..\vertr-bonds\docs\iss-api-rus-v14.pdf = ..\vertr-bonds\docs\iss-api-rus-v14.pdf
 		LICENSE = LICENSE
 		README.md = README.md
+		TECH.md = TECH.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4B42857C-FD8E-4EB6-B9D6-200FD3E19168}"
@@ -24,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vertr.Moex.Iss", "src\Vertr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vertr.Moex.Generators", "src\Vertr.Moex.Generators\Vertr.Moex.Generators.csproj", "{5358F5A7-F6C3-4173-A67F-3C7594B4BE59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vertr.Moex.Generators.Tests", "tests\Vertr.Moex.Generators.Tests\Vertr.Moex.Generators.Tests.csproj", "{3AC28814-2B9A-451C-A304-78338CF9C005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vertr.Moex.Generators.Tests", "tests\Vertr.Moex.Generators.Tests\Vertr.Moex.Generators.Tests.csproj", "{3AC28814-2B9A-451C-A304-78338CF9C005}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
