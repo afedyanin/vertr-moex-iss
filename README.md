@@ -8,7 +8,6 @@ Moex ISS connector
 
 ![sample](sample_url.png)
 
-
 ``` csharp
 
 ...
@@ -75,4 +74,3 @@ Result
 - [Обёртка над iss.moex.com на C#](https://github.com/ITGlobal/MoexIssAPI)
 - [Fiss - библиотека для строго-типизированного взаимодействия с MOEX ISS](https://github.com/Kataane/Fiss)
 - [C# client library and OpenAPI spec for Moex IIS](https://github.com/HavenDV/MoexIIS)
-
