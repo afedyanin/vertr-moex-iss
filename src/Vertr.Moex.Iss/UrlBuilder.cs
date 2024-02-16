@@ -139,9 +139,13 @@ public class UrlBuilder(string? baseUrl = null)
 
     public UrlBuilder LimitRows(int limit) => Query("limit", limit.ToString());
 
+    public UrlBuilder IncludeMeta(bool on) => Query("iss.meta", on ? "on" : "off");
+
+    public UrlBuilder IncludeData(bool on) => Query("iss.data", on ? "on" : "off");
+
+    public UrlBuilder OnlyBlocks(InfoBlockKey[] blocks) => Query("iss.only", string.Join(',', blocks.Select(b => b.Name)));
 
     // TODO: Add query params - https://iss.moex.com/iss/reference/68
-    // TODO: Add Static Data
 
     public string Build()
     {

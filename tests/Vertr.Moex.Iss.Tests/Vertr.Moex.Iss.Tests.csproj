@@ -10,18 +10,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="JsonData\bonds.columns.json" />
+    <None Remove="JsonData\bonds.json" />
+    <None Remove="JsonData\shares.columns.json" />
+    <None Remove="JsonData\shares.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="JsonData\bonds.columns.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JsonData\bonds.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JsonData\shares.columns.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JsonData\shares.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+<!--
     <PackageReference Include="Vertr.Moex.Iss" Version="1.0.0" />
+-->
   </ItemGroup>
 
-  <!--
   <ItemGroup>
     <ProjectReference Include="..\..\src\Vertr.Moex.Iss\Vertr.Moex.Iss.csproj" />
   </ItemGroup>
-  -->
 
 </Project>

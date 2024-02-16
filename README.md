@@ -41,4 +41,11 @@ Moex ISS connector
 - [Try the new System.Text.Json source generator](https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/)
 - [PLAYING WITH SYSTEM.TEXT.JSON SOURCE GENERATORS](https://www.stevejgordon.co.uk/playing-with-system-text-json-source-generators)
 
+### Data Frame
+
+- [Using DataFrames in C#](https://swharden.com/blog/2022-05-01-dotnet-dataframe/)
+- [trying-out-dataframe-package-netcore](https://blog.zhaytam.com/2019/12/17/trying-out-dataframe-package-netcore/)
+- [Getting Started With C# DataFrame and XPlot.Ploty](https://dzone.com/articles/getting-started-with-c-dataframe-and-xplotploty)
+- [Exploring the C# Dataframe API](https://www.youtube.com/watch?v=FI3VxXClJ7Y)
+- 
 
