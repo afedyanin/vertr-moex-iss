@@ -39,5 +39,12 @@
 
 - [Docs](https://perspective.finos.org/docs/js/)
 - [GitHub](https://github.com/finos/perspective)
+- [Apache Arrow Example](https://github.com/finos/perspective/blob/master/examples/blocks/src/superstore/index.html)
+
+### Apache Arrow
+- [Apache Arrow C#](https://github.com/apache/arrow/tree/main/csharp)
+- [Apache Spark](https://spark.apache.org/)
+- [.NET for Apache® Spark™](https://github.com/dotnet/spark)
+
 
 
