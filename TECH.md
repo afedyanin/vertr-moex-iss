@@ -35,4 +35,9 @@
 - [Getting Started With C# DataFrame and XPlot.Ploty](https://dzone.com/articles/getting-started-with-c-dataframe-and-xplotploty)
 - [Exploring the C# Dataframe API](https://www.youtube.com/watch?v=FI3VxXClJ7Y)
 
+### Finos Perspective Grid
+
+- [Docs](https://perspective.finos.org/docs/js/)
+- [GitHub](https://github.com/finos/perspective)
+
 
