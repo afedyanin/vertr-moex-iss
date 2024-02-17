@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{08DE0FF9-C13E-4BDE-98B3-A74F5F4F655F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoexScreener.Client", "src\MoexScreener.Client\MoexScreener.Client.csproj", "{420515E8-804D-4093-A9AF-C69E8BBCA1F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoexScreener.Components", "src\MoexScreener.Components\MoexScreener.Components.csproj", "{56B3DD41-4109-40FD-9BF4-167BA722BF6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoexScreener.Server", "src\MoexScreener.Server\MoexScreener.Server.csproj", "{5B0EB762-D05A-4D04-BED7-F8C1E311865D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoexScreener.Shared", "src\MoexScreener.Shared\MoexScreener.Shared.csproj", "{BBF50880-AB84-4276-9CFA-FC3A007978C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{420515E8-804D-4093-A9AF-C69E8BBCA1F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{420515E8-804D-4093-A9AF-C69E8BBCA1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{420515E8-804D-4093-A9AF-C69E8BBCA1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{420515E8-804D-4093-A9AF-C69E8BBCA1F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56B3DD41-4109-40FD-9BF4-167BA722BF6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56B3DD41-4109-40FD-9BF4-167BA722BF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56B3DD41-4109-40FD-9BF4-167BA722BF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56B3DD41-4109-40FD-9BF4-167BA722BF6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B0EB762-D05A-4D04-BED7-F8C1E311865D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B0EB762-D05A-4D04-BED7-F8C1E311865D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B0EB762-D05A-4D04-BED7-F8C1E311865D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B0EB762-D05A-4D04-BED7-F8C1E311865D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF50880-AB84-4276-9CFA-FC3A007978C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF50880-AB84-4276-9CFA-FC3A007978C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF50880-AB84-4276-9CFA-FC3A007978C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF50880-AB84-4276-9CFA-FC3A007978C8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{420515E8-804D-4093-A9AF-C69E8BBCA1F7} = {08DE0FF9-C13E-4BDE-98B3-A74F5F4F655F}
+		{56B3DD41-4109-40FD-9BF4-167BA722BF6B} = {08DE0FF9-C13E-4BDE-98B3-A74F5F4F655F}
+		{5B0EB762-D05A-4D04-BED7-F8C1E311865D} = {08DE0FF9-C13E-4BDE-98B3-A74F5F4F655F}
+		{BBF50880-AB84-4276-9CFA-FC3A007978C8} = {08DE0FF9-C13E-4BDE-98B3-A74F5F4F655F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7B8F9A26-231C-45A6-B59C-2ADACA72EF66}
+	EndGlobalSection
+EndGlobal
