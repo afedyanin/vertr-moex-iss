@@ -46,5 +46,17 @@
 - [Apache Spark](https://spark.apache.org/)
 - [.NET for Apache® Spark™](https://github.com/dotnet/spark)
 
+### Asp.NET Streams
+- [Streaming Zip on ASP.NET Core](https://blog.stephencleary.com/2016/11/streaming-zip-on-aspnet-core.html)
+- [ActionResult returning a Stream](https://stackoverflow.com/questions/13983190/actionresult-returning-a-stream)
+- [Streaming using ASP.NET Core: A Guide](https://copyprogramming.com/howto/how-to-stream-with-asp-net-core)
+- [Streaming JSON responses with IAsyncEnumerable](https://anthonygiretti.com/2021/09/22/asp-net-core-6-streaming-json-responses-with-iasyncenumerable-example-with-angular/)
+- [Using Streams with HttpClient to Improve Performance and Memory Usage](https://code-maze.com/using-streams-with-httpclient-to-improve-performance-and-memory-usage/)
+
+
+
+
+
+
 
 
