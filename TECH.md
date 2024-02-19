@@ -53,6 +53,8 @@
 - [Streaming JSON responses with IAsyncEnumerable](https://anthonygiretti.com/2021/09/22/asp-net-core-6-streaming-json-responses-with-iasyncenumerable-example-with-angular/)
 - [Using Streams with HttpClient to Improve Performance and Memory Usage](https://code-maze.com/using-streams-with-httpclient-to-improve-performance-and-memory-usage/)
 
+### Asp.NET Streams v2
+- [Streaming a response in .NET Core WebApi](https://dogschasingsquirrels.com/2020/06/02/streaming-a-response-in-net-core-webapi/)
 
 
 
