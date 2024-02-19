@@ -50,7 +50,7 @@ public class InfoBlock
     {
         var res = new List<object?>();
 
-        for (int i = 0; i < Columns.Length; i++)
+        for (var i = 0; i < Columns.Length; i++)
         {
             res.Add(ConvertToCell(jsonRow[i], Metadata[Columns[i]].Type));
         }
@@ -67,7 +67,7 @@ public class InfoBlock
 
         return metaItem.Type switch
         {
-            "string" => new StringDataFrameColumn(colName),
+            "string" => new ArrowStringDataFrameColumn(colName),
             "undefined" => new StringDataFrameColumn(colName),
             "double" => new PrimitiveDataFrameColumn<decimal>(colName),
             "int32" => new PrimitiveDataFrameColumn<int>(colName),
