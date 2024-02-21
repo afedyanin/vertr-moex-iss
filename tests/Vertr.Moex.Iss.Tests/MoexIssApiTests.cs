@@ -1,5 +1,4 @@
 using Apache.Arrow.Ipc;
-using Apache.Arrow;
 using Vertr.Moex.Iss.Entities;
 
 namespace Vertr.Moex.Iss.Tests;
