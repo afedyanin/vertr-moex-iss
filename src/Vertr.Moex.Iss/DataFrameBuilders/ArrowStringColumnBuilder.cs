@@ -1,11 +1,21 @@
 using Apache.Arrow;
 using Microsoft.Data.Analysis;
 
-namespace Vertr.Moex.Iss.Extensions;
+namespace Vertr.Moex.Iss.DataFrameBuilders;
 
-internal class ArrowColumnFactory
+internal class ArrowStringColumnBuilder(string columnName) : ColumnBuilder(columnName)
 {
-    public static ArrowStringDataFrameColumn CreateStringColumn(string name, string?[] values)
+    private readonly List<string?> _columnValues = [];
+
+    public override void Append(object? value)
+    {
+        _columnValues.Add(value as string);
+    }
+
+    public override DataFrameColumn Build()
+        => CreateStringColumn(ColumnName, _columnValues);
+
+    private static ArrowStringDataFrameColumn CreateStringColumn(string name, IEnumerable<string?> values)
     {
         var strArrayBuilder = new StringArray.Builder();
 

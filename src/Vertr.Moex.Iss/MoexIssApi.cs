@@ -76,8 +76,8 @@ public class MoexIssApi(string? baseUrl = null)
             {
                 continue;
             }
-            var infoBlock = new InfoBlock(block, json, true);
-            res.Add(infoBlock.DataFrame);
+            var infoBlock = new InfoBlock(block, json);
+            res.Add(infoBlock.ToDataFrame());
         }
 
         return [.. res];

@@ -1,12 +1,11 @@
 using Apache.Arrow;
 using Microsoft.Data.Analysis;
-using Vertr.Moex.Iss.Extensions;
+using Vertr.Moex.Iss.DataFrameBuilders;
 
-namespace Vertr.Moex.Iss.Tests.Extensions;
-
+namespace Vertr.Moex.Iss.Tests.DataFrameBuilders;
 
 [TestFixture(Category = "Unit")]
-public class ArrowColumnFactoryTests
+public class ArrowStringColumnBuilderTests
 {
     [Test]
     public void CanBuildStringColumn()
@@ -36,7 +35,14 @@ public class ArrowColumnFactoryTests
     {
         var items = new string?[] { "aaa", "bbb", null, "ccc" };
 
-        var col = ArrowColumnFactory.CreateStringColumn("test", items);
+        var cb = new ArrowStringColumnBuilder("test");
+
+        foreach (var item in items)
+        {
+            cb.Append(item);
+        }
+
+        var col = cb.Build();
         Assert.That(col, Is.Not.Null);
 
         for (var i = 0; i < col.Length; i++)
@@ -44,5 +50,4 @@ public class ArrowColumnFactoryTests
             Console.WriteLine($"i={i} val={col[i]}");
         }
     }
-
 }

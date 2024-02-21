@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Vertr.Moex.Iss.Entities;
+using Vertr.Moex.Iss.Extensions;
 
 namespace Vertr.Moex.Iss.Tests.Entities;
 
@@ -16,7 +17,9 @@ public class InfoBlockTests
 
         var securitiesBlock = new InfoBlock(InfoBlockKey.Securities, json);
         Assert.That(securitiesBlock, Is.Not.Null);
-        Assert.That(securitiesBlock.DataFrame.Columns, Is.Not.Empty);
+
+        var df = securitiesBlock.ToDataFrame();
+        Assert.That(df.Columns, Is.Not.Empty);
     }
 
     [TestCase("JsonData/bonds.json")]
@@ -27,30 +30,28 @@ public class InfoBlockTests
     {
         var json = File.ReadAllText(fileName);
 
-        var block = new InfoBlock(InfoBlockKey.Marketdata, json, true);
+        var block = new InfoBlock(InfoBlockKey.Marketdata, json);
 
         Assert.That(block, Is.Not.Null);
+
+        var df = block.ToDataFrame();
         Assert.Multiple(() =>
         {
-            Assert.That(block.DataFrame.Columns, Is.Not.Empty);
-            Assert.That(block.DataFrame.Rows, Is.Not.Empty);
+            Assert.That(df.Columns, Is.Not.Empty);
+            Assert.That(df.Rows, Is.Not.Empty);
         });
     }
 
     [TestCase("JsonData/shares.columns.json")]
-    public void CanFillDataRows(string fileName)
+    public void CanParseRows(string fileName)
     {
         var json = File.ReadAllText(fileName);
         var jDoc = JsonDocument.Parse(json);
-
         var securitiesBlock = new InfoBlock(InfoBlockKey.Securities, jDoc);
         var jsonData = jDoc.RootElement.GetProperty("securities").GetProperty("data");
 
-        securitiesBlock.FillDataFrame(jsonData);
-        var df = securitiesBlock.DataFrame;
+        var rows = securitiesBlock.ParseRows(jsonData);
 
-        var table = df.ToString();
-        Assert.That(table, Is.Not.Empty);
-        Console.WriteLine(table);
+        Assert.That(rows, Is.Not.Empty);
     }
 }

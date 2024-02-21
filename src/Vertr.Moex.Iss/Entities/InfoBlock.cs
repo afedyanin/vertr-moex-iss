@@ -34,7 +34,7 @@ public class InfoBlock
         Rows = ParseRows(_jsonElement.GetPropertyOrThrow("data"));
     }
 
-    private List<DataRow> ParseRows(JsonElement jsonTable)
+    public List<DataRow> ParseRows(JsonElement jsonTable)
     {
         var res = new List<DataRow>();
         var index = 0;

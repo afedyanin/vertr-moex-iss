@@ -1,7 +1,7 @@
 using Microsoft.Data.Analysis;
 using Vertr.Moex.Iss.Entities;
 
-namespace Vertr.Moex.Iss.Extensions;
+namespace Vertr.Moex.Iss.DataFrameBuilders;
 internal class DataFrameFactory
 {
     private readonly string[] _columns;
@@ -17,7 +17,7 @@ internal class DataFrameFactory
         _columnBuilders = InitColumnBuilders();
     }
 
-    public DataFrame Create(DataRow[] rows)
+    public DataFrame Create(IEnumerable<DataRow> rows)
     {
         FillRows(rows);
         var columns = CreateColumns();
@@ -32,13 +32,15 @@ internal class DataFrameFactory
         for (var i = 0; i < _columns.Length; i++)
         {
             var name = _columns[i];
-            res[i] = new ColumnBuilder(name, _columnMetadata[name].Type);
+            res[i] = CreateColumnBuilder(_columnMetadata[name].Type, name);
         }
 
         return res;
     }
+    private IEnumerable<DataFrameColumn> CreateColumns()
+        => _columnBuilders.Select(cb => cb.Build());
 
-    private void FillRows(DataRow[] rows)
+    private void FillRows(IEnumerable<DataRow> rows)
     {
         foreach (var row in rows)
         {
@@ -49,23 +51,19 @@ internal class DataFrameFactory
         }
     }
 
-    private IEnumerable<DataFrameColumn> CreateColumns()
-        => _columnBuilders.Select(ToDataFrameColumn);
-
-    public DataFrameColumn ToDataFrameColumn(ColumnBuilder cb)
+    private ColumnBuilder CreateColumnBuilder(string colType, string colName)
     {
-        return cb.ColumnType switch
+        return colType switch
         {
-            "string" => new ArrowStringDataFrameColumn(cb.ColumnName),
-            "undefined" => new StringDataFrameColumn(cb.ColumnName),
-            "double" => new PrimitiveDataFrameColumn<decimal>(cb.ColumnName),
-            "int32" => new PrimitiveDataFrameColumn<int>(cb.ColumnName),
-            "int64" => new PrimitiveDataFrameColumn<long>(cb.ColumnName),
-            "date" => new PrimitiveDataFrameColumn<DateOnly>(cb.ColumnName),
-            "time" => new PrimitiveDataFrameColumn<TimeOnly>(cb.ColumnName),
-            "datetime" => new PrimitiveDataFrameColumn<DateTime>(cb.ColumnName),
-            _ => throw new InvalidOperationException($"Unsupported column type: {cb.ColumnName}")
+            "string" => new ArrowStringColumnBuilder(colName),
+            "undefined" => new ArrowStringColumnBuilder(colName),
+            "double" => new PrimitiveTypeColumnBuilder<decimal>(colName),
+            "int32" => new PrimitiveTypeColumnBuilder<int>(colName),
+            "int64" => new PrimitiveTypeColumnBuilder<long>(colName),
+            "date" => new PrimitiveTypeColumnBuilder<DateOnly>(colName),
+            "time" => new PrimitiveTypeColumnBuilder<TimeOnly>(colName),
+            "datetime" => new PrimitiveTypeColumnBuilder<DateTime>(colName),
+            _ => throw new InvalidOperationException($"Unsupported column type: {colName}")
         };
     }
-
 }
