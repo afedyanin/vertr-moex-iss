@@ -72,7 +72,7 @@ public class InfoBlock
         return columnType switch
         {
             "string" => jsonCell.GetString() ?? string.Empty,
-            "double" => jsonCell.GetDecimal(),
+            "double" => jsonCell.GetDouble(),
             "int32" => jsonCell.GetInt32(),
             "int64" => jsonCell.GetInt64(),
             "date" => GetDateOnly(jsonCell.GetString()),
@@ -84,24 +84,27 @@ public class InfoBlock
         };
     }
 
-    private static DateOnly? GetDateOnly(string? value)
+    private static DateTime? GetDateOnly(string? value)
     {
         if (!DateOnly.TryParse(value, out var res))
         {
             return null;
         }
 
-        return res;
+        // Fix Arrow NotImplemented Exception
+        var dt = res.ToDateTime(TimeOnly.MinValue);
+        return dt;
     }
 
-    private static TimeOnly? GetTimeOnly(string? value)
+    private static string? GetTimeOnly(string? value)
     {
         if (!TimeOnly.TryParse(value, out var res))
         {
             return null;
         }
 
-        return res;
+        // Fix Arrow NotImplemented Exception
+        return res.ToLongTimeString();
     }
 
     private static DateTime? GetDateTime(string? value)

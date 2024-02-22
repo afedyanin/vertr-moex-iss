@@ -57,11 +57,11 @@ internal class DataFrameFactory
         {
             "string" => new ArrowStringColumnBuilder(colName),
             "undefined" => new ArrowStringColumnBuilder(colName),
-            "double" => new PrimitiveTypeColumnBuilder<decimal>(colName),
+            "double" => new PrimitiveTypeColumnBuilder<double>(colName),
             "int32" => new PrimitiveTypeColumnBuilder<int>(colName),
             "int64" => new PrimitiveTypeColumnBuilder<long>(colName),
-            "date" => new PrimitiveTypeColumnBuilder<DateOnly>(colName),
-            "time" => new PrimitiveTypeColumnBuilder<TimeOnly>(colName),
+            "date" => new PrimitiveTypeColumnBuilder<DateTime>(colName),
+            "time" => new ArrowStringColumnBuilder(colName),
             "datetime" => new PrimitiveTypeColumnBuilder<DateTime>(colName),
             _ => throw new InvalidOperationException($"Unsupported column type: {colName}")
         };

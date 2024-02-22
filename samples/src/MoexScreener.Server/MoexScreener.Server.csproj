@@ -27,7 +27,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*-* " />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*-* " />
-    <PackageReference Include="Vertr.Moex.Iss" Version="1.0.2" />
+    <PackageReference Include="Vertr.Moex.Iss" Version="1.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MoexScreener.Components\MoexScreener.Components.csproj" />

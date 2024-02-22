@@ -16,7 +16,7 @@ public class MoexIssController : ControllerBase
     {
         var api = new MoexIssApi();
 
-        var dfs = await api.SecurityColumns(
+        var dfs = await api.Securities(
             Engine.Stock,
             Market.Stock_Bonds,
             [InfoBlockKey.Securities]);
@@ -29,7 +29,7 @@ public class MoexIssController : ControllerBase
     {
         var api = new MoexIssApi();
 
-        var dfs = await api.SecurityColumns(
+        var dfs = await api.Securities(
             Engine.Stock,
             Market.Stock_Shares,
             [InfoBlockKey.Securities]);
