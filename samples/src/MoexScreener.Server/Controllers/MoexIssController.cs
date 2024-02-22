@@ -23,7 +23,7 @@ public class MoexIssController : ControllerBase
         return Ok(dfs[0]);
     }
 
-    [HttpGet("engines-arrow")]
+    [HttpGet("simple-arrow")]
     public async Task GetEnginesArrow()
     {
         var api = new MoexIssApi();
@@ -34,16 +34,46 @@ public class MoexIssController : ControllerBase
             [InfoBlockKey.Securities]);
 
 
+        Response.Headers.Append(HeaderNames.ContentType, "application/vnd.apache.arrow.stream");
+        Response.StatusCode = 200;
+
+        var outputStream = Response.Body;
+
         foreach (var recordBatch in dfs[0].ToArrowRecordBatches())
         {
-            using var writer = new ArrowStreamWriter(Response.Body, recordBatch.Schema);
+            using var writer = new ArrowStreamWriter(outputStream, recordBatch.Schema);
             await writer.WriteRecordBatchAsync(recordBatch);
             await writer.WriteEndAsync();
         }
 
-        Response.Headers.Append(HeaderNames.ContentDisposition, $"attachment; filename=\"sample-arrow.txt\"");
+        await outputStream.FlushAsync();
+
+    }
+
+    [HttpGet("simple-file")]
+    public async Task GetSimpleFile()
+    {
+        var filePath = "C:\\Users\\Anatoly\\Documents\\GitHub\\vertr-moex-iss\\samples\\src\\MoexScreener.Server\\wwwroot\\sample-data\\simple.txt";
+        var inputStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+        var outputStream = this.Response.Body;
+
+        Response.Headers.Append(HeaderNames.ContentDisposition, $"attachment; filename=\"simple.txt\"");
         Response.Headers.Append(HeaderNames.ContentType, "application/octet-stream");
         Response.StatusCode = 200;
-        await Response.Body.FlushAsync();
+
+        const int bufferSize = 1 << 10;
+        var buffer = new byte[bufferSize];
+        while (true)
+        {
+            var bytesRead = await inputStream.ReadAsync(buffer.AsMemory(0, bufferSize));
+            if (bytesRead == 0)
+            {
+                break;
+            }
+
+            await outputStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+        }
+
+        await outputStream.FlushAsync();
     }
 }
