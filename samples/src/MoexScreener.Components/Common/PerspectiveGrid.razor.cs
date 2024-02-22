@@ -1,8 +1,7 @@
-using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace MoexScreener.Components.Pages.Perspective;
+namespace MoexScreener.Components.Common;
 
 public partial class PerspectiveGrid : IAsyncDisposable
 {
@@ -28,21 +27,11 @@ public partial class PerspectiveGrid : IAsyncDisposable
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
-    [Inject]
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private HttpClient Http { get; set; }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // var schema = await Http.GetFromJsonAsync<Dictionary<string, string>>(SchemaEndpoint);
-            // var data = await Http.GetFromJsonAsync<Dictionary<string, object>[]>(DataEndpoint);
-            // var data = await Http.GetStringAsync(DataEndpoint);
-
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/MoexScreener.Components/Pages/Perspective/PerspectiveGrid.razor.js");
-            // await _jsModule.InvokeVoidAsync("loadJson", schema, data, perspectiveViewer);
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/MoexScreener.Components/Common/PerspectiveGrid.razor.js");
             await _jsModule.InvokeVoidAsync("fetchArrow", DataEndpoint, perspectiveViewer);
         }
     }
