@@ -10,7 +10,6 @@ Moex ISS connector
 
 ![sceener1](screener01.png)
 ![sceener1](screener02.png)
-![sceener1](screener03.png)
 ![sceener1](screener04.png)
 
 
