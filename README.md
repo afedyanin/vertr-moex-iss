@@ -4,14 +4,13 @@ Moex ISS connector
 
 ## Samples
 
-### MOEX Screener Demo
+### MOEX Screener Blazor Demo
 
-[MOEX Screener Source Code](https://github.com/afedyanin/vertr-moex-iss)
+[Sample Source Code](https://github.com/afedyanin/vertr-moex-iss/tree/main/samples)
 
 ![sceener1](screener01.png)
 ![sceener1](screener02.png)
 ![sceener1](screener04.png)
-
 
 ### Url Builder
 
