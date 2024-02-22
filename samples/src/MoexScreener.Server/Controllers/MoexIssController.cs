@@ -24,6 +24,19 @@ public class MoexIssController : ControllerBase
         await DataFrameToResponseStream(dfs[0]);
     }
 
+    [HttpGet("bonds-trades/{symbol}")]
+    public async Task GetBondTrades(string symbol)
+    {
+        var api = new MoexIssApi();
+
+        var df = await api.Trades(
+            Engine.Stock,
+            Market.Stock_Bonds,
+            symbol);
+
+        await DataFrameToResponseStream(df);
+    }
+
     [HttpGet("shares")]
     public async Task GetShares()
     {
@@ -35,6 +48,19 @@ public class MoexIssController : ControllerBase
             [InfoBlockKey.Securities]);
 
         await DataFrameToResponseStream(dfs[0]);
+    }
+
+    [HttpGet("shares-trades/{symbol}")]
+    public async Task GetSharesTrades(string symbol)
+    {
+        var api = new MoexIssApi();
+
+        var df = await api.Trades(
+            Engine.Stock,
+            Market.Stock_Shares,
+            symbol);
+
+        await DataFrameToResponseStream(df);
     }
 
     private async Task DataFrameToResponseStream(DataFrame df)

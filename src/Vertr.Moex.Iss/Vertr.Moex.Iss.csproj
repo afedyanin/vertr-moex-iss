@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/afedyanin/vertr-moex-iss</PackageProjectUrl>
     <PackageTags>moex, finance, trading</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
