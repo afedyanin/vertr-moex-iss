@@ -1,5 +1,6 @@
 using Apache.Arrow.Ipc;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using Vertr.Moex.Iss;
 using Vertr.Moex.Iss.Entities;
 
@@ -23,7 +24,7 @@ public class MoexIssController : ControllerBase
     }
 
     [HttpGet("engines-arrow")]
-    public async Task<IActionResult> GetEnginesArrow()
+    public async Task GetEnginesArrow()
     {
         var api = new MoexIssApi();
 
@@ -33,7 +34,6 @@ public class MoexIssController : ControllerBase
             [InfoBlockKey.Securities]);
 
 
-        // TODO: Use ArrowStreamWriter
         foreach (var recordBatch in dfs[0].ToArrowRecordBatches())
         {
             using var writer = new ArrowStreamWriter(Response.Body, recordBatch.Schema);
@@ -41,6 +41,9 @@ public class MoexIssController : ControllerBase
             await writer.WriteEndAsync();
         }
 
-        return Ok(dfs[0]);
+        Response.Headers.Append(HeaderNames.ContentDisposition, $"attachment; filename=\"sample-arrow.txt\"");
+        Response.Headers.Append(HeaderNames.ContentType, "application/octet-stream");
+        Response.StatusCode = 200;
+        await Response.Body.FlushAsync();
     }
 }

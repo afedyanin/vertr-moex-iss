@@ -37,12 +37,13 @@ public partial class PerspectiveGrid : IAsyncDisposable
     {
         if (firstRender)
         {
-            var schema = await Http.GetFromJsonAsync<Dictionary<string, string>>(SchemaEndpoint);
-            var data = await Http.GetFromJsonAsync<Dictionary<string, object>[]>(DataEndpoint);
+            // var schema = await Http.GetFromJsonAsync<Dictionary<string, string>>(SchemaEndpoint);
+            // var data = await Http.GetFromJsonAsync<Dictionary<string, object>[]>(DataEndpoint);
             // var data = await Http.GetStringAsync(DataEndpoint);
 
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/MoexScreener.Components/Pages/Perspective/PerspectiveGrid.razor.js");
-            await _jsModule.InvokeVoidAsync("loadJson", schema, data, perspectiveViewer);
+            // await _jsModule.InvokeVoidAsync("loadJson", schema, data, perspectiveViewer);
+            await _jsModule.InvokeVoidAsync("fetchArrow", DataEndpoint, perspectiveViewer);
         }
     }
 

@@ -22,7 +22,7 @@ public class WeatherForecastController(ILogger<WeatherForecastController> logger
 
     private readonly ILogger<WeatherForecastController> _logger = logger;
 
-    [HttpGet("GetWeatherForecast")]
+    [HttpGet("forecast")]
     public IEnumerable<WeatherForecast> Get()
     {
         return Enumerable.Range(1, 50).Select(index => new WeatherForecast
