@@ -1,5 +1,5 @@
 using System.Text.Json;
-using Microsoft.Data.Analysis;
+using Vertr.Moex.Iss.Extensions;
 
 namespace Vertr.Moex.Iss.Entities;
 public class InfoBlock
@@ -8,75 +8,55 @@ public class InfoBlock
 
     public InfoBlockKey Key { get; private set; }
 
-    public DataFrame DataFrame { get; private set; }
+    public string[] ColumnNames { get; private set; }
 
-    public string[] Columns { get; private set; }
+    public IReadOnlyDictionary<string, MetadataItem> ColumnMetadata { get; private set; }
 
-    public IReadOnlyDictionary<string, MetadataItem> Metadata { get; private set; }
+    public IEnumerable<DataRow> Rows { get; private set; }
 
-    public InfoBlock(InfoBlockKey key, string json, bool fillData = false) :
-        this(key, JsonDocument.Parse(json), fillData)
+    public InfoBlock(InfoBlockKey key, string json) :
+        this(key, JsonDocument.Parse(json))
     {
     }
 
-    public InfoBlock(InfoBlockKey key, JsonDocument jsonDocument, bool fillData = false) :
-        this(key, GetPropertyOrThrow(jsonDocument.RootElement, key.Name), fillData)
+    public InfoBlock(InfoBlockKey key, JsonDocument jsonDocument) :
+        this(key, jsonDocument.RootElement.GetPropertyOrThrow(key.Name))
     {
     }
 
-    public InfoBlock(InfoBlockKey key, JsonElement jsonElement, bool fillData = false)
+    public InfoBlock(InfoBlockKey key, JsonElement jsonElement)
     {
         _jsonElement = jsonElement;
+
         Key = key;
-        Columns = GetPropertyOrThrow(_jsonElement, "columns").Deserialize<string[]>() ?? [];
-        Metadata = GetPropertyOrThrow(_jsonElement, "metadata").Deserialize<Dictionary<string, MetadataItem>>() ?? [];
-        DataFrame = new DataFrame(Columns.Select(CreateColumn));
-
-        if (fillData)
-        {
-            FillDataFrame(GetPropertyOrThrow(_jsonElement, "data"));
-        }
+        ColumnNames = _jsonElement.GetPropertyOrThrow("columns").Deserialize<string[]>() ?? [];
+        ColumnMetadata = _jsonElement.GetPropertyOrThrow("metadata").Deserialize<Dictionary<string, MetadataItem>>() ?? [];
+        Rows = ParseRows(_jsonElement.GetPropertyOrThrow("data"));
     }
 
-    public void FillDataFrame(JsonElement jsonDataElement)
+    public List<DataRow> ParseRows(JsonElement jsonTable)
     {
-        foreach (var jsonRow in jsonDataElement.EnumerateArray())
-        {
-            DataFrame.Append(CreateDataRow(jsonRow), true);
-        }
-    }
+        var res = new List<DataRow>();
+        var index = 0;
 
-    private List<object?> CreateDataRow(JsonElement jsonRow)
-    {
-        var res = new List<object?>();
-
-        for (int i = 0; i < Columns.Length; i++)
+        foreach (var jsonRow in jsonTable.EnumerateArray())
         {
-            res.Add(ConvertToCell(jsonRow[i], Metadata[Columns[i]].Type));
+            res.Add(BuildDataRow(jsonRow, index++));
         }
 
         return res;
     }
 
-    private DataFrameColumn CreateColumn(string colName)
+    private DataRow BuildDataRow(JsonElement jsonRow, long index)
     {
-        if (!Metadata.TryGetValue(colName, out var metaItem))
+        var objArray = new object?[ColumnNames.Length];
+
+        for (var i = 0; i < ColumnNames.Length; i++)
         {
-            throw new InvalidOperationException($"Unknown column name: {colName}");
+            objArray[i] = ConvertToCell(jsonRow[i], ColumnMetadata[ColumnNames[i]].Type);
         }
 
-        return metaItem.Type switch
-        {
-            "string" => new StringDataFrameColumn(colName),
-            "undefined" => new StringDataFrameColumn(colName),
-            "double" => new PrimitiveDataFrameColumn<decimal>(colName),
-            "int32" => new PrimitiveDataFrameColumn<int>(colName),
-            "int64" => new PrimitiveDataFrameColumn<long>(colName),
-            "date" => new PrimitiveDataFrameColumn<DateOnly>(colName),
-            "time" => new PrimitiveDataFrameColumn<TimeOnly>(colName),
-            "datetime" => new PrimitiveDataFrameColumn<DateTime>(colName),
-            _ => throw new InvalidOperationException($"Unsupported column type: {metaItem.Type}")
-        };
+        return new DataRow(index, objArray);
     }
 
     private static object? ConvertToCell(JsonElement jsonCell, string columnType)
@@ -92,7 +72,7 @@ public class InfoBlock
         return columnType switch
         {
             "string" => jsonCell.GetString() ?? string.Empty,
-            "double" => jsonCell.GetDecimal(),
+            "double" => jsonCell.GetDouble(),
             "int32" => jsonCell.GetInt32(),
             "int64" => jsonCell.GetInt64(),
             "date" => GetDateOnly(jsonCell.GetString()),
@@ -104,24 +84,27 @@ public class InfoBlock
         };
     }
 
-    private static DateOnly? GetDateOnly(string? value)
+    private static DateTime? GetDateOnly(string? value)
     {
         if (!DateOnly.TryParse(value, out var res))
         {
             return null;
         }
 
-        return res;
+        // Fix Arrow NotImplemented Exception
+        var dt = res.ToDateTime(TimeOnly.MinValue);
+        return dt;
     }
 
-    private static TimeOnly? GetTimeOnly(string? value)
+    private static string? GetTimeOnly(string? value)
     {
         if (!TimeOnly.TryParse(value, out var res))
         {
             return null;
         }
 
-        return res;
+        // Fix Arrow NotImplemented Exception
+        return res.ToLongTimeString();
     }
 
     private static DateTime? GetDateTime(string? value)
@@ -132,15 +115,5 @@ public class InfoBlock
         }
 
         return res;
-    }
-
-    private static JsonElement GetPropertyOrThrow(JsonElement jsonElement, string name)
-    {
-        if (!jsonElement.TryGetProperty(name, out var found))
-        {
-            throw new ArgumentException($"Json property={name} is not found.");
-        }
-
-        return found;
     }
 }

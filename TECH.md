@@ -35,4 +35,30 @@
 - [Getting Started With C# DataFrame and XPlot.Ploty](https://dzone.com/articles/getting-started-with-c-dataframe-and-xplotploty)
 - [Exploring the C# Dataframe API](https://www.youtube.com/watch?v=FI3VxXClJ7Y)
 
+### Finos Perspective Grid
+
+- [Docs](https://perspective.finos.org/docs/js/)
+- [GitHub](https://github.com/finos/perspective)
+- [Apache Arrow Example](https://github.com/finos/perspective/blob/master/examples/blocks/src/superstore/index.html)
+
+### Apache Arrow
+- [Apache Arrow C#](https://github.com/apache/arrow/tree/main/csharp)
+- [Apache Spark](https://spark.apache.org/)
+- [.NET for Apache® Spark™](https://github.com/dotnet/spark)
+
+### Asp.NET Streams
+- [Streaming Zip on ASP.NET Core](https://blog.stephencleary.com/2016/11/streaming-zip-on-aspnet-core.html)
+- [ActionResult returning a Stream](https://stackoverflow.com/questions/13983190/actionresult-returning-a-stream)
+- [Streaming using ASP.NET Core: A Guide](https://copyprogramming.com/howto/how-to-stream-with-asp-net-core)
+- [Streaming JSON responses with IAsyncEnumerable](https://anthonygiretti.com/2021/09/22/asp-net-core-6-streaming-json-responses-with-iasyncenumerable-example-with-angular/)
+- [Using Streams with HttpClient to Improve Performance and Memory Usage](https://code-maze.com/using-streams-with-httpclient-to-improve-performance-and-memory-usage/)
+
+### Asp.NET Streams v2
+- [Streaming a response in .NET Core WebApi](https://dogschasingsquirrels.com/2020/06/02/streaming-a-response-in-net-core-webapi/)
+
+
+
+
+
+
 

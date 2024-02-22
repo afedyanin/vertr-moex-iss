@@ -1,0 +1,15 @@
+@page "/moex-shares-trades/{symbol}"
+
+<h3>@Symbol Trades</h3>
+
+<PerspectiveGrid Height="800px"
+                 DataEndpoint="@DataEndpoint"
+                 TableName="Share Trades" />
+
+@code{
+
+    [Parameter]
+    public string? Symbol { get; set; }
+
+    public string DataEndpoint => $"bff/moex-iss/shares-trades/{Symbol}";
+}

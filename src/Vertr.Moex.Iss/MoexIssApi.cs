@@ -44,7 +44,8 @@ public class MoexIssApi(string? baseUrl = null)
     public async Task<DataFrame> Trades(
         Engine engine,
         Market market,
-        string secId)
+        string secId,
+        bool reversed = true)
     {
         var blocks = new InfoBlockKey[] { InfoBlockKey.Trades };
         var url = new UrlBuilder(_baseUrl)
@@ -53,6 +54,7 @@ public class MoexIssApi(string? baseUrl = null)
             .Securities(secId)
             .Trades
             .OnlyBlocks(blocks)
+            .Reversed(reversed)
             .Build();
 
         var frames = await FetchData(url, blocks);
@@ -76,8 +78,8 @@ public class MoexIssApi(string? baseUrl = null)
             {
                 continue;
             }
-            var infoBlock = new InfoBlock(block, json, true);
-            res.Add(infoBlock.DataFrame);
+            var infoBlock = new InfoBlock(block, json);
+            res.Add(infoBlock.ToDataFrame());
         }
 
         return [.. res];

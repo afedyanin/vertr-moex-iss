@@ -1,0 +1,20 @@
+@inject NavigationManager Navigation
+
+<div class="navmenu">
+    <input type="checkbox" title="Menu expand/collapse toggle" id="navmenu-toggle" class="navmenu-icon" />
+    <label for="navmenu-toggle" class="navmenu-icon"><FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Neutral" /></label>
+    <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click()">
+        <FluentNavMenu Id="main-menu" Title="MOEX ISS">
+            <FluentNavLink Href="/moex-bonds" Icon="@(new Icons.Regular.Size20.Book())" IconColor="Color.Accent">Bonds</FluentNavLink>
+            <FluentNavLink Href="/moex-shares" Icon="@(new Icons.Regular.Size20.Share())" IconColor="Color.Accent">Shares</FluentNavLink>
+
+            <FluentNavGroup Expanded="true" Gap="10px" Icon="@(new Icons.Regular.Size20.PersonRunning())">
+                <TitleTemplate><h3>Favorites</h3></TitleTemplate>
+                <ChildContent>
+                    <FluentNavLink Href="/moex-shares-trades/SBER" Icon="@(new Icons.Regular.Size20.BuildingBank())" IconColor="Color.Accent">SBER</FluentNavLink>
+                </ChildContent>
+            </FluentNavGroup>
+
+        </FluentNavMenu>
+    </nav>
+</div>

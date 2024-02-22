@@ -53,4 +53,20 @@ public class MoexIssApiTests
 
         Console.WriteLine(df);
     }
+
+    [Test]
+    public async Task CanValidateArrowColumns()
+    {
+        var api = new MoexIssApi();
+
+        var dfs = await api.SecurityColumns(
+            Engine.Stock,
+            Market.Stock_Bonds,
+            [InfoBlockKey.Securities]);
+
+        foreach (var col in dfs[0].Columns)
+        {
+            Console.WriteLine($"name={col.Name} dataType={col.DataType.Name}");
+        }
+    }
 }
