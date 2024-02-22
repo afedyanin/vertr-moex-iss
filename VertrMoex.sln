@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{4B1B7D
 		README.md = README.md
 		sample.png = sample.png
 		sample_url.png = sample_url.png
+		screener01.png = screener01.png
+		screener02.png = screener02.png
+		screener03.png = screener03.png
+		screener04.png = screener04.png
 		TECH.md = TECH.md
 	EndProjectSection
 EndProject
