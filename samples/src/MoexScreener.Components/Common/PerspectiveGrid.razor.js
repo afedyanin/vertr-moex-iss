@@ -17,12 +17,23 @@ export async function fetchJson(schema, url, view) {
   view.load(table);
 }
 
-export async function fetchArrow(url, view) {
+export async function fetchArrow(url, view, dotNetObject) {
   const worker = perspective.worker();
   let resp = await fetch(url);
   let ab = await resp.arrayBuffer();
   const table = await worker.table(ab);
   view.load(table);
+
+  view.addEventListener("perspective-click", function (event) {
+
+    let secId = event.detail.row.SECID;
+
+    if (dotNetObject && secId) {
+      console.info(secId + " row selected inside!");
+      dotNetObject.invokeMethodAsync('NavigateToDetails', secId);
+    }
+  });
+
 }
 
 export async function fetchWebSocket(schema, view) {

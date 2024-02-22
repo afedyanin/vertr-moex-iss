@@ -24,16 +24,43 @@ public partial class PerspectiveGrid : IAsyncDisposable
     [Parameter]
     public string DataEndpoint { get; set; } = string.Empty;
 
+    [Parameter]
+    public string DetailsEndpoint { get; set; } = string.Empty;
+
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
+
+
+    private DotNetObjectReference<PerspectiveGrid> _dotNetObjectReference = default!;
+
+    protected override Task OnInitializedAsync()
+    {
+        _dotNetObjectReference = DotNetObjectReference.Create(this);
+
+        return base.OnInitializedAsync();
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/MoexScreener.Components/Common/PerspectiveGrid.razor.js");
-            await _jsModule.InvokeVoidAsync("fetchArrow", DataEndpoint, perspectiveViewer);
+            await _jsModule.InvokeVoidAsync("fetchArrow", DataEndpoint, perspectiveViewer, _dotNetObjectReference);
         }
+    }
+
+    [JSInvokable("NavigateToDetails")]
+    public Task NavigateToDetails(string secId)
+    {
+        if (string.IsNullOrEmpty(DetailsEndpoint) ||
+            string.IsNullOrEmpty(secId))
+        {
+            return Task.CompletedTask;
+        }
+
+        Navigation.NavigateTo($"{DetailsEndpoint}/{secId}");
+
+        return Task.CompletedTask;
     }
 
     public async ValueTask DisposeAsync()
