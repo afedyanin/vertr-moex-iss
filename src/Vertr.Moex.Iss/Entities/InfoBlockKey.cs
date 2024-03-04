@@ -7,6 +7,7 @@ public class InfoBlockKey
     public static readonly InfoBlockKey Dataversion = new InfoBlockKey { Name = "dataversion" };
     public static readonly InfoBlockKey MarketdataYields = new InfoBlockKey { Name = "marketdata_yields" };
     public static readonly InfoBlockKey Trades = new InfoBlockKey { Name = "trades" };
+    public static readonly InfoBlockKey Candles = new InfoBlockKey { Name = "candles" };
 
     public string Name { get; init; } = string.Empty;
 }

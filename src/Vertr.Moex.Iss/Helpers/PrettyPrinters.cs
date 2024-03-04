@@ -1,12 +1,12 @@
 using Microsoft.Data.Analysis;
 using System.Text;
 
-namespace Vertr.Moex.ConsoleApp;
+namespace Vertr.Moex.Iss;
 
 /// <summary>
 /// https://github.com/swharden/Csharp-Data-Visualization/blob/main/projects/dataframe/PrettyPrinters.cs
 /// </summary>
-internal static class PrettyPrinters
+public static class PrettyPrinters
 {
     public static void PrettyPrint(this DataFrame df) => Console.WriteLine(PrettyText(df));
     public static string PrettyText(this DataFrame df) => ToStringArray2D(df).ToFormattedText();
@@ -19,25 +19,35 @@ internal static class PrettyPrinters
 
     private static string[,] ToStringArray2D(DataFrame df)
     {
-        string[,] strings = new string[df.Rows.Count + 1, df.Columns.Count];
+        var strings = new string[df.Rows.Count + 1, df.Columns.Count];
 
-        for (int i = 0; i < df.Columns.Count; i++)
+        for (var i = 0; i < df.Columns.Count; i++)
+        {
             strings[0, i] = df.Columns[i].Name;
+        }
 
-        for (int i = 0; i < df.Rows.Count; i++)
-            for (int j = 0; j < df.Columns.Count; j++)
+        for (var i = 0; i < df.Rows.Count; i++)
+        {
+            for (var j = 0; j < df.Columns.Count; j++)
+            {
                 strings[i + 1, j] = df[i, j]?.ToString() ?? string.Empty;
+            }
+        }
 
         return strings;
     }
 
     private static int[] GetMaxLengthsByColumn(this string[,] strings)
     {
-        int[] maxLengthsByColumn = new int[strings.GetLength(1)];
+        var maxLengthsByColumn = new int[strings.GetLength(1)];
 
-        for (int y = 0; y < strings.GetLength(0); y++)
-            for (int x = 0; x < strings.GetLength(1); x++)
+        for (var y = 0; y < strings.GetLength(0); y++)
+        {
+            for (var x = 0; x < strings.GetLength(1); x++)
+            {
                 maxLengthsByColumn[x] = Math.Max(maxLengthsByColumn[x], strings[y, x].Length);
+            }
+        }
 
         return maxLengthsByColumn;
     }
@@ -45,11 +55,11 @@ internal static class PrettyPrinters
     private static string ToFormattedText(this string[,] strings)
     {
         StringBuilder sb = new();
-        int[] maxLengthsByColumn = GetMaxLengthsByColumn(strings);
+        var maxLengthsByColumn = GetMaxLengthsByColumn(strings);
 
-        for (int y = 0; y < strings.GetLength(0); y++)
+        for (var y = 0; y < strings.GetLength(0); y++)
         {
-            for (int x = 0; x < strings.GetLength(1); x++)
+            for (var x = 0; x < strings.GetLength(1); x++)
             {
                 sb.Append(strings[y, x].PadRight(maxLengthsByColumn[x] + 2));
             }
@@ -63,29 +73,36 @@ internal static class PrettyPrinters
     private static string ToMarkdown(this string[,] strings)
     {
         StringBuilder sb = new();
-        int[] maxLengthsByColumn = GetMaxLengthsByColumn(strings);
+        var maxLengthsByColumn = GetMaxLengthsByColumn(strings);
 
-        for (int y = 0; y < strings.GetLength(0); y++)
+        for (var y = 0; y < strings.GetLength(0); y++)
         {
-            for (int x = 0; x < strings.GetLength(1); x++)
+            for (var x = 0; x < strings.GetLength(1); x++)
             {
                 sb.Append(strings[y, x].PadRight(maxLengthsByColumn[x]));
                 if (x < strings.GetLength(1) - 1)
+                {
                     sb.Append(" | ");
+                }
             }
             sb.AppendLine();
 
             if (y == 0)
             {
-                for (int i = 0; i < strings.GetLength(1); i++)
+                for (var i = 0; i < strings.GetLength(1); i++)
                 {
-                    int bars = maxLengthsByColumn[i] + 2;
+                    var bars = maxLengthsByColumn[i] + 2;
                     if (i == 0)
+                    {
                         bars -= 1;
-                    sb.Append(new String('-', bars));
+                    }
+
+                    sb.Append(new string('-', bars));
 
                     if (i < strings.GetLength(1) - 1)
+                    {
                         sb.Append("|");
+                    }
                 }
                 sb.AppendLine();
             }

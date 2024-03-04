@@ -19,7 +19,7 @@ public class MoexIssApi(string? baseUrl = null)
             .Engines(engine)
             .Markets(market)
             .Securities()
-            .OnlyBlocks(blocks)
+            .IssBlocks(blocks)
             .Build();
 
         return await FetchData(url, blocks);
@@ -35,7 +35,7 @@ public class MoexIssApi(string? baseUrl = null)
             .Markets(market)
             .Securities()
             .Columns
-            .OnlyBlocks(blocks)
+            .IssBlocks(blocks)
             .Build();
 
         return await FetchData(url, blocks);
@@ -53,13 +53,68 @@ public class MoexIssApi(string? baseUrl = null)
             .Markets(market)
             .Securities(secId)
             .Trades
-            .OnlyBlocks(blocks)
+            .IssBlocks(blocks)
             .Reversed(reversed)
             .Build();
 
         var frames = await FetchData(url, blocks);
 
         return frames.First();
+    }
+
+    public async Task<DataFrame> Candles(
+        Engine engine,
+        Market market,
+        Board? board,
+        string secId,
+        DateOnly from,
+        DateOnly till,
+        Duration interval,
+        bool reversed = false)
+    {
+        var builder = new UrlBuilder()
+            .Engines(engine)
+            .Markets(market);
+
+        if (board != null)
+        {
+            builder = builder.Boards(board);
+        };
+
+        builder = builder
+            .Securities(secId)
+            .Candles
+            .IssReverse(true)
+            .From(from)
+            .To(till)
+            .Interval(interval)
+            .IssReverse(reversed);
+
+        var pos = 0L;
+        var df = await FetchCandleBatch(builder, pos);
+        var count = df.Rows.Count;
+
+        while (count > 0L)
+        {
+            pos += count;
+            var batch = await FetchCandleBatch(builder, pos);
+            count = batch.Rows.Count;
+            df.Append(batch.Rows, true);
+        }
+
+        return df;
+    }
+
+    private async Task<DataFrame> FetchCandleBatch(UrlBuilder builder, long start = 0L)
+    {
+        var url = builder.Start(start).Build();
+        // Console.WriteLine($"iss url={url}");
+
+        var blocks = new InfoBlockKey[] { InfoBlockKey.Candles };
+        var frames = await FetchData(url, blocks);
+        var df = frames.First();
+
+        return df;
     }
 
     private async Task<DataFrame[]> FetchData(string url, InfoBlockKey[] blocks)

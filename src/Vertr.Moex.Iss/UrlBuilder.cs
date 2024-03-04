@@ -8,8 +8,9 @@ public class UrlBuilder(string? baseUrl = null)
     private const string _defaulBaseUrl = "https://iss.moex.com/iss";
     private const string _defaulFormat = "json";
 
-    private readonly StringBuilder _pathbuilder = new StringBuilder();
-    private readonly StringBuilder _queryBuilder = new StringBuilder();
+    private readonly StringBuilder _pathbuilder = new();
+
+    private readonly Dictionary<string, string> _queryDictionary = [];
 
     private readonly string _baseUrl = baseUrl ?? _defaulBaseUrl;
 
@@ -34,8 +35,13 @@ public class UrlBuilder(string? baseUrl = null)
 
     public UrlBuilder Query(string key, string value)
     {
-        _queryBuilder.Append($"{key}={value}&");
+        if (_queryDictionary.ContainsKey(key))
+        {
+            _queryDictionary[key] = value;
+            return this;
+        }
 
+        _queryDictionary.Add(key, value);
         return this;
     }
 
@@ -139,20 +145,28 @@ public class UrlBuilder(string? baseUrl = null)
 
     public UrlBuilder LimitRows(int limit) => Query("limit", limit.ToString());
 
-    public UrlBuilder IncludeMeta(bool on) => Query("iss.meta", on ? "on" : "off");
+    public UrlBuilder IssMeta(bool on) => Query("iss.meta", on ? "on" : "off");
 
-    public UrlBuilder IncludeData(bool on) => Query("iss.data", on ? "on" : "off");
+    public UrlBuilder IssData(bool on) => Query("iss.data", on ? "on" : "off");
 
     public UrlBuilder Reversed(bool on) => Query("reversed", on ? "1" : "0");
 
-    public UrlBuilder OnlyBlocks(InfoBlockKey[] blocks) => Query("iss.only", string.Join(',', blocks.Select(b => b.Name)));
+    public UrlBuilder IssReverse(bool on) => Query("iss.reverse", on ? "true" : "false");
 
-    // TODO: Add query params - https://iss.moex.com/iss/reference/68
+    public UrlBuilder From(DateOnly fromDate) => Query("from", fromDate.ToString("yyyy-MM-dd"));
+
+    public UrlBuilder To(DateOnly tillDate) => Query("till", tillDate.ToString("yyyy-MM-dd"));
+
+    public UrlBuilder Start(long pos) => Query("start", pos.ToString());
+
+    public UrlBuilder Interval(Duration duration) => Query("interval", duration.Interval.ToString());
+
+    public UrlBuilder IssBlocks(InfoBlockKey[] blocks) => Query("iss.only", string.Join(',', blocks.Select(b => b.Name)));
+
 
     public string Build()
     {
         var path = _pathbuilder.ToString();
-        var query = _queryBuilder.ToString();
 
         var sb = new StringBuilder(_baseUrl);
         if (!string.IsNullOrEmpty(path))
@@ -160,13 +174,29 @@ public class UrlBuilder(string? baseUrl = null)
             sb.Append(path);
         }
 
-        sb.Append($".{_format}");
+        var query = GetQueryString();
 
-        if (!string.IsNullOrEmpty(query))
-        {
-            sb.Append($"?{query.TrimEnd('&')}");
-        }
+        sb.Append($".{_format}{query}");
 
         return sb.ToString();
+    }
+
+    private string GetQueryString()
+    {
+        var sb = new StringBuilder();
+
+        foreach (var kvp in _queryDictionary)
+        {
+            sb.Append($"{kvp.Key}={kvp.Value}&");
+        }
+
+        var query = sb.ToString();
+
+        if (string.IsNullOrEmpty(query))
+        {
+            return string.Empty;
+        }
+
+        return $"?{query.TrimEnd('&')}";
     }
 }
